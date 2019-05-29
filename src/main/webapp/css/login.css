@@ -28,7 +28,7 @@ body {
         display: inline-block; 
         padding: 32px 60px 0px 60px; 
         border: 1px; 
-        bottom: 50px;
+        bottom: 85px;
     }
 
     .logo_hu {
@@ -44,9 +44,13 @@ body {
     }
 }
 
-@media screen and (max-width: 413px) {
+@media screen and (max-width: 601px) {
     #btn_login {
         right: 20px;
+    }
+
+    #info {
+        display: block;
     }
 }
 
