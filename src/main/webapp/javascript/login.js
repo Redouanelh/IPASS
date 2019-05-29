@@ -29,6 +29,7 @@ document.querySelector("#btn_login").addEventListener("click", function(event) {
             console.log(myJson.error);
             document.getElementById('login_foutmelding').style.display = "block";
             document.getElementById('responsive_whitespace').style.display = "block";
+            document.getElementById('responsive_whitespace2').style.display = "block";
           }
         })
         .catch(error => console.log(error.message))
