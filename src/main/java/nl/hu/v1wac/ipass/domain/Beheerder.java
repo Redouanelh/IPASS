@@ -12,10 +12,11 @@ public class Beheerder {
 	private String isBeheerder;
 	private Date geboortedatum;
 	private int mobiel;
+	private Adres huidigAdres;
 	
 	public Beheerder() {}
 	
-	public Beheerder(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, Date gbdatum, int mobiel) {
+	public Beheerder(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, Date gbdatum, int mobiel, Adres adres) {
 		this.persoonsID = id;
 		this.voornaam = vnaam;
 		this.tussenvoegsel = tvoegsel;
@@ -25,6 +26,7 @@ public class Beheerder {
 		this.isBeheerder = isbeheerder;
 		this.geboortedatum = gbdatum;
 		this.mobiel = mobiel;
+		this.huidigAdres = adres;
 	}
 
 	public int getPersoonsID() {
@@ -99,6 +101,14 @@ public class Beheerder {
 		this.mobiel = mobiel;
 	}
 	
+	public Adres getHuidigAdres() {
+		return huidigAdres;
+	}
+
+	public void setHuidigAdres(Adres huidigAdres) {
+		this.huidigAdres = huidigAdres;
+	}
+	
 	public String toString() {
 		boolean beheerder = false;
 		boolean speler = false;
@@ -108,7 +118,7 @@ public class Beheerder {
 			beheerder = true;
 		}
 		
-		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder;
+		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nWoonplaats: " + huidigAdres.getWoonplaats() + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder;
 	}
 	
 }

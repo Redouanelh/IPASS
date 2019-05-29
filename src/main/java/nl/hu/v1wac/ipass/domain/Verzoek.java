@@ -1,8 +1,37 @@
 package nl.hu.v1wac.ipass.domain;
 
 public class Verzoek {
-	// Adres object meegeven in de constructor + een default constructor maken, dus bijv. Speler();
-	//in die defaultconstructor gewoon alles setten, zodat je niet altijd nullwaardes hoeft te hebben
-	//toString aanmaken!
+	
+	private String teamverzoek;
+	private Speler speler;
+	
+	public Verzoek() {}
+	
+	public Verzoek(Speler speler, String team) {
+		this.speler = speler;
+		this.teamverzoek = team;
+	}
+
+	public String getTeamverzoek() {
+		return teamverzoek;
+	}
+
+	public void setTeamverzoek(String teamverzoek) {
+		this.teamverzoek = teamverzoek;
+	}
+
+	public Speler getSpeler() {
+		return speler;
+	}
+
+	public void setSpeler(Speler speler) {
+		this.speler = speler;
+	}
+	
+	public String toString() {
+		return "Team verzoek: " + teamverzoek + "\nVan: " + speler.getVoornaam() + " met persoonsID " + speler.getPersoonsID();
+	}
+		
+	
 
 }

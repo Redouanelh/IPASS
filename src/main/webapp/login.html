@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+		<title>Wachtlijst Systeem Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/login.css">
+	</head>
+  <body>
+    <img src="images/logo-hu.png" alt="Logo Hogeschool Utrecht" class="logo_hu">
+    <div class="container">
+      <div class="row">
+        <main>
+          <center>
+              <div class="section"></div>
+              <div class="container">
+                <div class="z-depth-3 y-depth-3 x-depth-3 #eeeeee grey lighten-3 green-text lighten-4 row" id="formbox">
+                  <form id="loginformuliercontent">
+
+                      <div class='row'>
+                        <div class='input-field col s12'>
+                          <input class='validate' type="text" name='username' id='username' required />
+                          <label for='username'>Username</label>
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class='input-field col m12'>
+                          <input class='validate' type='password' name='password' id='password' required />
+                          <label for='password'>Password</label>
+                        </div>
+                        <label'>
+                        <a><b style="color: rgb(105, 95, 90);">VV de Meern<br>Wachtlijst Systeem</b></a>
+                        </label>
+                      </div>
+                      <br/>
+                      <center>
+                        <div class='row'>
+                          <button style="margin-left:65px;"  type='submit' name='btn_login' class='col  s6 btn btn-small white black-text  waves-effect z-depth-1 y-depth-1'>Login</button>
+                        </div>
+                      </center>
+                        
+                  </form>
+                </div>
+              </div>
+          </center>
+        </main>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="javascript/login.js"></script>
+  </body>
+</html>

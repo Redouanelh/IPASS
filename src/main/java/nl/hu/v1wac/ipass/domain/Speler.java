@@ -13,10 +13,12 @@ public class Speler {
 	private int spelersnummer;
 	private Date geboortedatum;
 	private int mobiel;
+	private Team team;
+	private Adres huidigAdres;
 	
 	public Speler() {}
 	
-	public Speler(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, int spelernr, Date gbdatum, int mobiel) {
+	public Speler(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, int spelernr, Date gbdatum, int mobiel, Team team, Adres adres) {
 		this.persoonsID = id;
 		this.voornaam = vnaam;
 		this.tussenvoegsel = tvoegsel;
@@ -27,6 +29,8 @@ public class Speler {
 		this.spelersnummer = spelernr;
 		this.geboortedatum = gbdatum;
 		this.mobiel = mobiel;
+		this.team = team;
+		this.huidigAdres = adres;
 	}
 
 	public int getPersoonsID() {
@@ -109,6 +113,22 @@ public class Speler {
 		this.mobiel = mobiel;
 	}
 	
+	public Team getTeam() {
+		return team;
+	}
+	
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	
+	public Adres getHuidigAdres() {
+		return huidigAdres;
+	}
+
+	public void setHuidigAdres(Adres huidigAdres) {
+		this.huidigAdres = huidigAdres;
+	}
+	
 	public String toString() {
 		boolean beheerder = false;
 		boolean speler = false;
@@ -117,8 +137,7 @@ public class Speler {
 		} else {
 			beheerder = true;
 		}
-		//team.getNaam();
-		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder;
+		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nWoonplaats: " + huidigAdres.getWoonplaats() + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder + "\nTeam: " + team.getTeam();
 	}
 	
 }

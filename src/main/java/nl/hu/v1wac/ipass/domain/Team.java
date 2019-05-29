@@ -1,5 +1,7 @@
 package nl.hu.v1wac.ipass.domain;
 
+import java.util.ArrayList;
+
 public class Team {
 	private String team;
 	private String motto;
@@ -8,6 +10,7 @@ public class Team {
 	private int verloren;
 	private String competitie;
 	private String trainermail;
+	private ArrayList<Speler> spelers = new ArrayList<Speler>();
 	
 	public Team() {}
 	
@@ -75,6 +78,14 @@ public class Team {
 
 	public void setTrainermail(String trainermail) {
 		this.trainermail = trainermail;
+	}
+	
+	public ArrayList<Speler> getSpelers() {
+		return spelers;
+	}
+
+	public void setSpelers(ArrayList<Speler> spelers) {
+		this.spelers = spelers;
 	}
 	
 	public String toString() {
