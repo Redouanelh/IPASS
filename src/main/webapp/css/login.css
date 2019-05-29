@@ -13,6 +13,7 @@ body {
 .logo_hu {
     position: relative;
     left: 20px;
+    bottom: 30px;
 }
 
 .logo_demeern {
@@ -25,7 +26,7 @@ body {
     #formbox {
         position: relative;
         display: inline-block; 
-        padding: 32px 48px 0px 48px; 
+        padding: 32px 60px 0px 60px; 
         border: 1px; 
         bottom: 50px;
     }
@@ -40,6 +41,12 @@ body {
         width: 125px;
         height: 125px;
         margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 413px) {
+    #btn_login {
+        right: 20px;
     }
 }
 
