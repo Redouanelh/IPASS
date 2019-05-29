@@ -14,7 +14,8 @@ version="4.0">
 	
 	<init-param>
 		<param-name>jersey.config.server.provider.packages</param-name>
-		<param-value>nl.hu.v1wac.ipass.webservices</param-value>
+		<param-value>nl.hu.ipass.webservices</param-value>
+		<param-value>nl.hu.ipass.inlog</param-value>
 	</init-param>
 	
 	<init-param>

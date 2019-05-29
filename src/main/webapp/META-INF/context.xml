@@ -3,7 +3,7 @@
 <Context>
 
 <Resource name="jdbc/PostgresDS"
-	url="jdbc:postgresql://localhost:5432/worlddb"
+	url="jdbc:postgresql://localhost:5432/IPASS"
 	driverClassName="org.postgresql.Driver"
 	auth="Container"
 	type="javax.sql.DataSource"

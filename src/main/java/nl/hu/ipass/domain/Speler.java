@@ -1,8 +1,8 @@
-package nl.hu.v1wac.ipass.domain;
+package nl.hu.ipass.domain;
 
 import java.util.Date;
 
-public class Beheerder {
+public class Speler {
 	private int persoonsID;
 	private String voornaam;
 	private String tussenvoegsel;
@@ -10,13 +10,15 @@ public class Beheerder {
 	private String wachtwoord;
 	private String isSpeler;
 	private String isBeheerder;
+	private int spelersnummer;
 	private Date geboortedatum;
 	private int mobiel;
+	private Team team;
 	private Adres huidigAdres;
 	
-	public Beheerder() {}
+	public Speler() {}
 	
-	public Beheerder(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, Date gbdatum, int mobiel, Adres adres) {
+	public Speler(int id, String vnaam, String tvoegsel, String anaam, String ww, String isspeler, String isbeheerder, int spelernr, Date gbdatum, int mobiel, Team team, Adres adres) {
 		this.persoonsID = id;
 		this.voornaam = vnaam;
 		this.tussenvoegsel = tvoegsel;
@@ -24,8 +26,10 @@ public class Beheerder {
 		this.wachtwoord = ww;
 		this.isSpeler = isspeler;
 		this.isBeheerder = isbeheerder;
+		this.spelersnummer = spelernr;
 		this.geboortedatum = gbdatum;
 		this.mobiel = mobiel;
+		this.team = team;
 		this.huidigAdres = adres;
 	}
 
@@ -85,6 +89,14 @@ public class Beheerder {
 		this.isBeheerder = isBeheerder;
 	}
 
+	public int getSpelersnummer() {
+		return spelersnummer;
+	}
+
+	public void setSpelersnummer(int spelersnummer) {
+		this.spelersnummer = spelersnummer;
+	}
+
 	public Date getGeboortedatum() {
 		return geboortedatum;
 	}
@@ -99,6 +111,14 @@ public class Beheerder {
 
 	public void setMobiel(int mobiel) {
 		this.mobiel = mobiel;
+	}
+	
+	public Team getTeam() {
+		return team;
+	}
+	
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	
 	public Adres getHuidigAdres() {
@@ -117,8 +137,7 @@ public class Beheerder {
 		} else {
 			beheerder = true;
 		}
-		
-		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nWoonplaats: " + huidigAdres.getWoonplaats() + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder;
+		return "PersoonsID: " + persoonsID + "\nVoornaam: " + voornaam + "\nTussenvoegsel: " + tussenvoegsel + "\nAchternaam: " + achternaam + "\nWoonplaats: " + huidigAdres.getWoonplaats() + "\nisSpeler: " + speler + "\nisBeheerder: " + beheerder + "\nTeam: " + team.getTeam();
 	}
 	
 }

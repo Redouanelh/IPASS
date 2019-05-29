@@ -1,4 +1,4 @@
-package nl.hu.v1wac.ipass.persistance;
+package nl.hu.ipass.persistance;
 
 import java.sql.Connection;
 

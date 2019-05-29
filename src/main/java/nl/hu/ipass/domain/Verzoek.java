@@ -1,4 +1,4 @@
-package nl.hu.v1wac.ipass.domain;
+package nl.hu.ipass.domain;
 
 public class Verzoek {
 	

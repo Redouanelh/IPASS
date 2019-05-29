@@ -1,10 +1,14 @@
-package nl.hu.v1wac.ipass.domain;
+package nl.hu.ipass.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
+
+import nl.hu.ipass.persistance.UserDao;
+import nl.hu.ipass.persistance.UserPostgresDaoImpl;
 
 public class TestMain {
 	  public static void main(String[] args) {
+		  
+		  UserDao dao = new UserPostgresDaoImpl();
 		  
 		  Date date = new Date();
 		  
@@ -19,10 +23,7 @@ public class TestMain {
 		  
 		  Verzoek v1 = new Verzoek(s1, "JO19-1");
 		  
-		  Beheerder b1 = new Beheerder(2, "Jannepan", "de", "Haas", "Wachtwoordd", "N", "J", date, 35654654, a1);	
-		  
-		  
-		  
+		  Beheerder b1 = new Beheerder(2, "Jannepan", "de", "Haas", "Wachtwoordd", "N", "J", date, 35654654, a1);			  
 		  
 	  }
 }
