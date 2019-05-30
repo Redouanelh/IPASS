@@ -1,6 +1,6 @@
 package nl.hu.ipass.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Speler {
 	private int persoonsID;

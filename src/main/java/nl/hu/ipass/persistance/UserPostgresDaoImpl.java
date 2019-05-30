@@ -31,5 +31,5 @@ public class UserPostgresDaoImpl extends PostgresBaseDao implements UserDao {
 		}
 		return result;
 	}
-
+	
 }
