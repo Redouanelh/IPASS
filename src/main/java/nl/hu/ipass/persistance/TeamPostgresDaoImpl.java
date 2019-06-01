@@ -97,4 +97,78 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 		return spelers;
 	}
 	
+	@Override 
+	public boolean addTeam(Team team) {
+		String query = "insert into teams(team, motto, gewonnen, gelijk, verloren, competitie, trainermail) values (?, ?, ?, ?, ?, ?, ?)";
+		boolean teamAdded = false;
+		
+		try (Connection conn = super.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, team.getTeam());
+			pstmt.setString(2, team.getMotto());
+			pstmt.setInt(3, team.getGewonnen());
+			pstmt.setInt(4, team.getGelijk());
+			pstmt.setInt(5, team.getVerloren());
+			pstmt.setString(6, team.getCompetitie());
+			pstmt.setString(7, team.getTrainermail());
+			
+			teamAdded = pstmt.executeUpdate() > 0;
+			pstmt.close();
+			System.out.println("Team toegevoegd: " + teamAdded);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return teamAdded;
+	}
+	
+	@Override
+	public boolean updateTeam(Team team) {
+		boolean teamExist = findTeamByName(team.getTeam()) != null;
+		
+		if (teamExist) {
+			String query = "update teams set motto = ?, gewonnen = ?, gelijk = ?, verloren = ?, competitie = ?, trainermail = ? "
+						 + "where team = ?";
+			try (Connection conn = super.getConnection()) {
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, team.getMotto());
+				pstmt.setInt(2, team.getGewonnen());
+				pstmt.setInt(3, team.getGelijk());
+				pstmt.setInt(4, team.getVerloren());
+				pstmt.setString(5, team.getCompetitie());
+				pstmt.setString(6, team.getTrainermail());
+				
+				teamExist = pstmt.executeUpdate() > 0;
+				pstmt.close();
+				System.out.println("Team updated: " + teamExist);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return teamExist;
+	}
+	
+	@Override
+	public boolean deleteTeam(Team team) {
+		boolean teamExist = findTeamByName(team.getTeam()) != null;
+		boolean teamDeleted = false;
+		
+		if (teamExist) {
+			String query = "delete from teams where team = ?";
+			
+			try (Connection conn = super.getConnection()) {
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, team.getTeam());
+				teamDeleted = pstmt.executeUpdate() > 0;
+				pstmt.close();
+				System.out.println("Team deleted: " + teamDeleted);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return teamDeleted;
+	}
+	
+	
+	
+	
 }

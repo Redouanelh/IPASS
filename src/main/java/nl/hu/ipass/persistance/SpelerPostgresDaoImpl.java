@@ -162,7 +162,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 		boolean spelerExist = getSpelerByUsername(speler.getVoornaam()) != null;
 		
 		if (spelerExist) {
-			String query = "update gebruikers set voornaam = ?, tussenvoegsel = ?, achternaam = ?, wachtwoord = ?, spelersnummer = ?, geboortedatum = ?, mobiel = ?, team = ?";
+			String query = "update gebruikers set voornaam = ?, tussenvoegsel = ?, achternaam = ?, wachtwoord = ?, spelersnummer = ?, geboortedatum = ?, mobiel = ?, team = ? where persoonsid = ?";
 			
 			try (Connection conn = super.getConnection()) {
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -174,9 +174,11 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 				pstmt.setDate(6, speler.getGeboortedatum());
 				pstmt.setInt(7, speler.getMobiel());
 				pstmt.setString(8, speler.getTeam().getTeam());
+				pstmt.setInt(9, speler.getPersoonsID());
 				
-				pstmt.execute();
+				spelerExist = pstmt.executeUpdate() > 0;
 				pstmt.close();	
+				System.out.println("Speler updated: " + spelerExist);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

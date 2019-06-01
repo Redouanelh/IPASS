@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import nl.hu.ipass.domain.Adres;
-import nl.hu.ipass.domain.Speler;
 
 public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 
@@ -67,7 +66,7 @@ public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 		boolean adresExist = findAdresById(adres.getAdresID()) != null;
 		
 		if (adresExist) {
-			String query = "update adres set postcode = ?, huisnummer = ?, straat = ?, woonplaats = ?";
+			String query = "update adres set postcode = ?, huisnummer = ?, straat = ?, woonplaats = ? where adresid = ?";
 			
 			try (Connection conn = super.getConnection()) {
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -75,9 +74,11 @@ public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 				pstmt.setInt(2, adres.getHuisnummer());
 				pstmt.setString(3, adres.getStraat());
 				pstmt.setString(4, adres.getWoonplaats());
+				pstmt.setInt(5, adres.getAdresID());
 				
-				pstmt.execute();
+				adresExist = pstmt.executeUpdate() > 0;
 				pstmt.close();
+				System.out.println("Adres updated: " + adresExist);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -98,6 +99,7 @@ public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 				pstmt.setInt(1, adres.getAdresID());
 				adresDeleted = pstmt.executeUpdate() < 0;
 				pstmt.close();
+				System.out.println("Adres deleted: " + adresDeleted);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

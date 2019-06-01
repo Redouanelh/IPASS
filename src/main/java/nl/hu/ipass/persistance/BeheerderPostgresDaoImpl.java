@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import nl.hu.ipass.domain.Adres;
 import nl.hu.ipass.domain.Beheerder;
 
 public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements BeheerderDao {
@@ -122,11 +123,39 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 	}
 	
 	@Override
+	public boolean addBeheerder(Beheerder beheerder, Adres adres) {
+		String query = "insert into gebruikers(persoonsid, voornaam, tussenvoegsel, achternaam, wachtwoord, isspeler, isbeheerder, geboortedatum, mobiel, adresid, team) "
+					 + "values ((select max(persoonsid) + 1 from gebruikers), ?, ?, ?, ?, ?, ?, ?, ?, (select max(adresid) + 1 from gebruikers), 'Beheerder')";
+		boolean beheerderAdded = false;
+		
+		adresDao.addAdres(adres);
+		
+		try (Connection conn = super.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, beheerder.getVoornaam());
+			pstmt.setString(2, beheerder.getTussenvoegsel());
+			pstmt.setString(3, beheerder.getAchternaam());
+			pstmt.setString(4, beheerder.getWachtwoord());
+			pstmt.setString(5, beheerder.getIsSpeler());
+			pstmt.setString(6, beheerder.getIsBeheerder());
+			pstmt.setDate(7, beheerder.getGeboortedatum());
+			pstmt.setInt(8, beheerder.getMobiel());
+			
+			beheerderAdded = pstmt.executeUpdate() > 0;
+			pstmt.close();
+			System.out.println("Beheerder updated: " + beheerderAdded);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return beheerderAdded;
+	}
+	
+	@Override
 	public boolean updateBeheerder(Beheerder beheerder) {
 		boolean beheerderExist = getBeheerderByUsername(beheerder.getVoornaam()) != null;
 		
 		if (beheerderExist) {
-			String query = "update gebruikers set voornaam = ?, tussenvoegsel = ?, achternaam = ?, wachtwoord = ?, geboortedatum = ?, mobiel = ?";
+			String query = "update gebruikers set voornaam = ?, tussenvoegsel = ?, achternaam = ?, wachtwoord = ?, geboortedatum = ?, mobiel = ? where persoonsid = ?";
 			
 			try (Connection conn = super.getConnection()) {
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -136,6 +165,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 				pstmt.setString(4, beheerder.getWachtwoord());
 				pstmt.setDate(5, beheerder.getGeboortedatum());
 				pstmt.setInt(6, beheerder.getMobiel());
+				pstmt.setInt(7, beheerder.getPersoonsID());
 				
 				pstmt.execute();
 				pstmt.close();	
