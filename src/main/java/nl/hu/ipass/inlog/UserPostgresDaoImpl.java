@@ -1,8 +1,10 @@
-package nl.hu.ipass.persistance;
+package nl.hu.ipass.inlog;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import nl.hu.ipass.persistance.PostgresBaseDao;
 
 public class UserPostgresDaoImpl extends PostgresBaseDao implements UserDao {
 

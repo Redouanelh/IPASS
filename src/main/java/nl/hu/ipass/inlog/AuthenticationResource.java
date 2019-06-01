@@ -19,8 +19,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-import nl.hu.ipass.persistance.UserDao;
-import nl.hu.ipass.persistance.UserPostgresDaoImpl;
 
 @Path("/authentication")
 public class AuthenticationResource {

@@ -9,6 +9,7 @@ public interface BeheerderDao {
 	
 	public ArrayList<Beheerder> findAllBeheerders();
 	public Beheerder getBeheerderByUsername(String username);
+	public Beheerder getBeheerderById(int id);
 	public boolean updateBeheerder(Beheerder beheerder);
 	public boolean deleteBeheerder(Beheerder beheerder);
 

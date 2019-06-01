@@ -1,4 +1,4 @@
-package nl.hu.ipass.persistance;
+package nl.hu.ipass.inlog;
 
 public interface UserDao {
 	

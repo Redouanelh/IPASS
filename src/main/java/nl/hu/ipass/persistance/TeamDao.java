@@ -10,5 +10,9 @@ public interface TeamDao {
 	public ArrayList<Team> findAllTeams();
 	public ArrayList<Speler> getSpelersFromTeam(String teamname);
 	public Team findTeamByName(String name);
+	public boolean addTeam(Team team);
+	public boolean updateTeam(Team team);
+	public boolean deleteTeam(Team team);
+
 	
 }

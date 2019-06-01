@@ -1,5 +1,8 @@
 package nl.hu.ipass.persistance;
 
+import nl.hu.ipass.inlog.UserDao;
+import nl.hu.ipass.inlog.UserPostgresDaoImpl;
+
 public class Main {
 	public static void main(String[] args) {
         try {
