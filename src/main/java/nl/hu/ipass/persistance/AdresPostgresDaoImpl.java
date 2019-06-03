@@ -28,7 +28,7 @@ public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 				adres.setStraat(myRs.getString("straat"));
 				adres.setWoonplaats(myRs.getString("woonplaats"));
 				
-				result += "Postcode: " + adres.getPostcode() + "\nStraat: " + adres.getStraat() + "\nHuisnummer: " + adres.getHuisnummer();
+				result = "Postcode: " + adres.getPostcode() + "\nStraat: " + adres.getStraat() + "\nHuisnummer: " + adres.getHuisnummer();
 			}
 			myRs.close();
 			pstmt.close();

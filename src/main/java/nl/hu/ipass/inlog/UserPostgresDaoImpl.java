@@ -34,4 +34,29 @@ public class UserPostgresDaoImpl extends PostgresBaseDao implements UserDao {
 		return result;
 	}
 	
+	@Override
+	public int findIdForUser(String name) {
+		String query = "select persoonsid from gebruikers where voornaam = ?";
+		int result = 404;
+		
+		try (Connection conn = super.getConnection()){
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			ResultSet myRs = pstmt.executeQuery();
+			while (myRs.next()) {
+				result = myRs.getInt("persoonsid");
+			}
+			
+			myRs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (result == 404) {
+			return result;
+		}
+		return result;
+	}
+	
 }

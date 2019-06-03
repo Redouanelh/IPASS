@@ -34,6 +34,7 @@ final static public Key key = MacProvider.generateKey();
 			// Role van de gegeven username/password combinatie in de database zoeken
 			UserDao dao = new UserPostgresDaoImpl();
 			String role = dao.findRoleForUser(username, password);
+			int persoonsid = dao.findIdForUser(username);
 			
 			if (role == null) {
 				throw new IllegalArgumentException("No user found!");
@@ -46,10 +47,11 @@ final static public Key key = MacProvider.generateKey();
 			JsonObjectBuilder job = Json.createObjectBuilder();
 				
 			job.add("JWT", token);
-			job.add("role", role);		
+			job.add("role", role);	
+			job.add("persoonsid", persoonsid);
 			String obj = job.build().toString();
 			
-			// Return als response het JSON-object met de token en de role
+			// Return als response het JSON-object met de token, de persoonsid en de role
 			return Response.ok(obj).build();
 			
 			

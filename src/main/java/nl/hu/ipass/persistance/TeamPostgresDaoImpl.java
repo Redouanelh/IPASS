@@ -12,9 +12,38 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 	
 	@Override
 	public ArrayList<Team> findAllTeams() {
-		// TODO Auto-generated method stub
+		String query = "select * from teams";
+		String result = null;
+		
+		ArrayList<Team> teams = new ArrayList<Team>();
+		try (Connection conn = super.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet myRs = pstmt.executeQuery();
+			
+			while (myRs.next()) {
+				Team team = new Team();
+				
+				team.setTeam(myRs.getString("team"));
+				team.setMotto(myRs.getString("motto"));
+				team.setGewonnen(myRs.getInt("gewonnen"));
+				team.setGelijk(myRs.getInt("gelijk"));
+				team.setVerloren(myRs.getInt("verloren"));
+				team.setCompetitie(myRs.getString("competitie"));
+				team.setTrainermail(myRs.getString("trainermail"));
+				
+				teams.add(team);
+				result = "Teamnaam: " + team.getTeam() + "\nMotto: " + team.getMotto() + "\n\n";
+			}
+			myRs.close();
+			pstmt.close();
 		return null;
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+		System.out.println(result);
+		return teams;	
+	}
+
 
 	@Override
 	public Team findTeamByName(String name) {
@@ -38,7 +67,7 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 				team.setCompetitie(myRs.getString("competitie"));
 				team.setTrainermail(myRs.getString("trainermail"));
 				
-				result += "Teamnaam: " + team.getTeam() + "\nMotto: " + team.getMotto();
+				result = "Teamnaam: " + team.getTeam() + "\nMotto: " + team.getMotto();
 			}
 			myRs.close();
 			pstmt.close();
@@ -53,7 +82,7 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 	@Override
 	public ArrayList<Speler> getSpelersFromTeam(String teamname) {
 		String query = "select * from gebruikers g where g.team = ?";
-		String result = null;
+		String result = "";
 		
 		AdresDao adresDao = new AdresPostgresDaoImpl();
 		TeamDao teamDao = new TeamPostgresDaoImpl();

@@ -18,11 +18,11 @@ document.querySelector("#btn_login").addEventListener("click", function(event) {
             if (myJson.role == "N") {
               window.location = "beheerderdashboard.html";
               console.log("Key received");
-              window.sessionStorage.setItem("myJWT", myJson.JWT);
+              window.sessionStorage.setItem("JWT", myJson.JWT);
             } else {
               window.location = "spelerdashboard.html";
               console.log("Key received");
-              window.sessionStorage.setItem("myJWT", myJson.JWT);
+              window.sessionStorage.setItem("JWT", myJson.JWT);
             }
           }
           else {

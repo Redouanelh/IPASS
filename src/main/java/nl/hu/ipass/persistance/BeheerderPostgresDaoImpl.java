@@ -15,8 +15,8 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 
 	@Override
 	public ArrayList<Beheerder> findAllBeheerders() {
-		String query = "select * from gebruikers where isbeheerder = 'J'";
-		String result = null;
+		String query = "select * from gebruikers";
+		String result = "";
 		
 		ArrayList<Beheerder> beheerders = new ArrayList<Beheerder>();
 		
@@ -27,6 +27,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 			while (myRs.next()) {
 				Beheerder beheerder = new Beheerder();
 				
+				beheerder.setPersoonsID(myRs.getInt("persoonsid"));
 				beheerder.setVoornaam(myRs.getString("voornaam"));
 				beheerder.setTussenvoegsel(myRs.getString("tussenvoegsel"));
 				beheerder.setAchternaam(myRs.getString("achternaam"));
@@ -50,9 +51,10 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 
 	@Override
 	public Beheerder getBeheerderByUsername(String username) {
-		String query = "select g.voornaam, g.tussenvoegsel, g.achternaam, g.geboortedatum, g.mobiel, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats " + 
+		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.geboortedatum, g.mobiel, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats " + 
 						"from gebruikers g, adres a " + 
 						"where g.adresid = a.adresid " + 
+						"and g.isBeheerder = 'J' " +
 						"and g.voornaam = ?";
 		String result = null;
 		
@@ -65,6 +67,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 			ResultSet myRs = pstmt.executeQuery();
 			
 			while (myRs.next()) {
+				beheerder.setPersoonsID(myRs.getInt("persoonsid"));
 				beheerder.setVoornaam(myRs.getString("voornaam"));
 				beheerder.setTussenvoegsel(myRs.getString("tussenvoegsel"));
 				beheerder.setAchternaam(myRs.getString("achternaam"));
@@ -73,7 +76,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 				
 				beheerder.setHuidigAdres(adresDao.findAdresById(myRs.getInt("adresid")));
 				
-				result += "Voornaam : " + beheerder.getVoornaam() + "\nWoonplaats; " + beheerder.getHuidigAdres().getWoonplaats();
+				result = "Voornaam : " + beheerder.getVoornaam() + "\nWoonplaats; " + beheerder.getHuidigAdres().getWoonplaats();
 			}
 			myRs.close();
 			pstmt.close();
@@ -87,7 +90,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 	
 	@Override
 	public Beheerder getBeheerderById(int id) {
-		String query = "select g.voornaam, g.tussenvoegsel, g.achternaam, g.geboortedatum, g.mobiel, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats " + 
+		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.geboortedatum, g.mobiel, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats " + 
 						"from gebruikers g, adres a " + 
 						"where g.adresid = a.adresid " + 
 						"and g.persoonsid = ?";
@@ -102,6 +105,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 			ResultSet myRs = pstmt.executeQuery();
 			
 			while (myRs.next()) {
+				beheerder.setPersoonsID(myRs.getInt("persoonsid"));
 				beheerder.setVoornaam(myRs.getString("voornaam"));
 				beheerder.setTussenvoegsel(myRs.getString("tussenvoegsel"));
 				beheerder.setAchternaam(myRs.getString("achternaam"));
@@ -110,7 +114,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 				
 				beheerder.setHuidigAdres(adresDao.findAdresById(myRs.getInt("adresid")));
 				
-				result += "Voornaam : " + beheerder.getVoornaam() + "\nWoonplaats; " + beheerder.getHuidigAdres().getWoonplaats();
+				result = "Voornaam : " + beheerder.getVoornaam() + "\nWoonplaats; " + beheerder.getHuidigAdres().getWoonplaats();
 			}
 			myRs.close();
 			pstmt.close();
