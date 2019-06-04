@@ -1,5 +1,6 @@
 package nl.hu.ipass.inlog;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
@@ -20,6 +21,7 @@ public class WachtlijstResources {
 	
 	@GET
 	@Path("/spelerprofile")
+	@RolesAllowed("J")
 	@Produces("application/json")
 	public String getProfileFromSpeler(@Context SecurityContext sc
 								 ) {
@@ -89,6 +91,7 @@ public class WachtlijstResources {
 	
 	@GET
 	@Path("/beheerderprofile")
+	@RolesAllowed("N")
 	@Produces("application/json")
 	public String getProfileFromBeheerder(@Context SecurityContext sc
 								 ) {

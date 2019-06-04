@@ -1,0 +1,23 @@
+body {
+    background-color: #ff8615
+}
+
+.logo_demeern {
+    position: relative;
+    height: 180px;
+    width: 180px;
+    left: 10px;
+    top: 10px;
+}
+
+#dashboard_btn {
+    width: 170px;
+}
+
+#profiel_btn {
+    width: 170px;
+}
+
+#logout_btn {
+    width: 170px;
+}
