@@ -1,3 +1,7 @@
+// Session storage legen zodra loginpagina wordt geladen, in het geval dat iemand nadat er ingelogt is via de URL balk terug gaat naar de inlogpagina. 
+// Als dat wordt gedaan blijft de sessiontoken namelijk bestaan, wat ik tegen wil gaan.
+sessionStorage.clear();
+
 document.querySelector("#btn_login").addEventListener("click", function(event) {
     login();
     event.stopPropagation();
