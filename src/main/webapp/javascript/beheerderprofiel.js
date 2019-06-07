@@ -8,9 +8,15 @@ function loadProfile() {
     }
     fetch('restservices/wachtlijstsysteem/beheerderprofile/', fetchget)
     .then(function(response) {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        window.location = "unauthorized.html"; // Als je unauthorized bent, wordt je terug gestuurd naar je eigen dashboard.
+      }
     })
     .then(function(myJson) {
+      // Hier de functie die de json values in de innerhtml plaatst.
       console.log(myJson);
     });
   }

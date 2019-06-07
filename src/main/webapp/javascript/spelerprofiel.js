@@ -8,14 +8,21 @@ function loadProfile() {
     }
     fetch('restservices/wachtlijstsysteem/spelerprofile/', fetchget)
     .then(function(response) {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        window.location = "unauthorized.html"; // Als je unauthorized bent, wordt je terug gestuurd naar je eigen dashboard.
+      }
     })
     .then(function(myJson) {
+      // Hier de functie die de json values in de innerhtml plaatst.
       console.log(myJson);
     });
   }
-  
-loadProfile();
+  loadProfile();
+
+  // De mijn locatie zit nu hardcodede hooivlinder in, dit moet een variabele worden die telkens met straatnaam van gebruiker wordt ingevoerd!
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token
 document.querySelector("#logout_btn").onclick = function(event) {

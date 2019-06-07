@@ -21,9 +21,9 @@ public class WachtlijstResources {
 	
 	@GET
 	@Path("/spelerprofile")
-	@RolesAllowed("J")
+	@RolesAllowed("J") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
-	public String getProfileFromSpeler(@Context SecurityContext sc
+	public String getInfoFromSpeler(@Context SecurityContext sc
 								 ) {
 		
 		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
