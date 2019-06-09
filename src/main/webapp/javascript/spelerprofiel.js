@@ -22,7 +22,6 @@ function loadProfile() {
   }
   loadProfile();
 
-  // De mijn locatie zit nu hardcodede hooivlinder in, dit moet een variabele worden die telkens met straatnaam van gebruiker wordt ingevoerd!
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token
 document.querySelector("#logout_btn").onclick = function(event) {

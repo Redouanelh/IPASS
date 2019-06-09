@@ -18,10 +18,26 @@ function loadProfile() {
   .then(function(myJson) {
     // Hier de functie die de json values in de innerhtml plaatst.
     console.log(myJson);
+    loadTeammates();
   });
 }
 
-loadProfile();
+function loadTeammates() {
+  var fetchget = {
+    method: 'GET',
+    headers: {
+      'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+    }
+  }
+  fetch('restservices/wachtlijstsysteem/spelerteam', fetchget)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    //Hier de functie aanroepen voor tabel vullen, maar niet de tabel vullen functie hier schrijven anders wordt t onoverzichtelijk.
+    console.log(myJson);
+  });
+}
 
 // Bij team pagina een lijst tonen met al je teamgenoten, team naam, gewonnen/gelijk/verloren en de optie team verlaten, dit wordt dan een update en je wordt in de wachtlijstteam geplaatst.
 
@@ -31,3 +47,5 @@ document.querySelector("#logout_btn").onclick = function(event) {
     sessionStorage.clear();
     window.location = "login.html";
   }
+
+  loadProfile();

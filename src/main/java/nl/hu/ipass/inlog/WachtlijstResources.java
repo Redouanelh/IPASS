@@ -2,6 +2,8 @@ package nl.hu.ipass.inlog;
 
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,11 +15,77 @@ import nl.hu.ipass.domain.Adres;
 import nl.hu.ipass.domain.Beheerder;
 import nl.hu.ipass.domain.Speler;
 import nl.hu.ipass.domain.Team;
+import nl.hu.ipass.domain.Verzoek;
 import nl.hu.ipass.persistance.BeheerderPostgresDaoImpl;
 import nl.hu.ipass.persistance.SpelerPostgresDaoImpl;
+import nl.hu.ipass.persistance.TeamPostgresDaoImpl;
+import nl.hu.ipass.persistance.VerzoekPostgresDaoImpl;
 
 @Path("/wachtlijstsysteem")
 public class WachtlijstResources {
+	
+	@GET
+	@Path("/spelerdashboard")
+	@RolesAllowed("J")
+	@Produces("application/json")
+	public String checkTeamSpots(@Context SecurityContext sc
+								) { // Geeft de team terug waar er een plek is ontstaan
+		
+		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
+		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();
+		
+		String username = sc.getUserPrincipal().getName();
+		Speler speler = spelerdao.getSpelerByUsername(username);
+		Team team = speler.getTeam();
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		
+		if (team.getTeam().equals("Wachtlijst")) { // Check of je wel op de wachtlijst zit, en niet al in een officiëel team.
+			
+			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.
+			if (teamdao.getSpelersFromTeam("JO19").size() < 12 ) {
+				job.add("teamjo19", "JO19");
+			} else if (teamdao.getSpelersFromTeam("JO18").size() < 12 ) {
+				job.add("teamjo18", "JO18");
+			} else if (teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
+				job.add("teamjo17", "JO17");
+			} else {
+				job.add("melding", "Er zijn helaas geen teams beschikbaar, Probeer het later opnieuw.");
+			}
+			
+		} else {
+			// Je hebt 'Wachtlijst' niet als team.
+			job.add("melding", "U bevind zich al in een team!");
+		}
+		
+		String obj = job.build().toString();
+		return obj;
+	}
+	
+	@GET
+	@Path("/beheerderdashboard")
+	@RolesAllowed("N")
+	@Produces("application/json")
+	public String getVerzoeken() { // Haalt de opgegeven verzoeken op.
+		
+		VerzoekPostgresDaoImpl verzoekdao = new VerzoekPostgresDaoImpl();
+		
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (Verzoek v : verzoekdao.getAllVerzoeken()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("teamverzoek", v.getTeamverzoek());
+			job.add("persoonsid", v.getSpeler().getPersoonsID());
+			
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	
+	//Als je jezelf uit team wilt verwijderen gwn update speler doen en dan de de speler setteam(wachtlijst) doen.
+	
 	
 	@GET
 	@Path("/spelerprofile")
@@ -132,6 +200,37 @@ public class WachtlijstResources {
 		return obj;
 	}
 	
-	// Extra maken waarbij je de teamgenoten kan inzien van je team, en één waarin je alle beheerders kan opvragen
-	
+	@GET
+	@Path("/spelerteam")
+	@RolesAllowed("J")
+	@Produces("application/json")
+	public String showTeammates(@Context SecurityContext sc
+								) { // Toont de teamgenoten van de desbetreffende speler
+		
+		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
+		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();
+		
+		String username = sc.getUserPrincipal().getName();
+		Speler speler = spelerdao.getSpelerByUsername(username);
+		Team team = speler.getTeam();
+		
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (Speler s : teamdao.getSpelersFromTeam(team.getTeam())) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			
+			job.add("voornaam", s.getVoornaam());
+			if (s.getTussenvoegsel() != null) {
+				job.add("tussenvoegsel", speler.getTussenvoegsel());
+			}
+			job.add("achternaam", s.getAchternaam());
+			job.add("spelersnummer", s.getSpelersnummer());
+			job.add("mobiel", s.getMobiel());
+			
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+		
 }
