@@ -50,7 +50,7 @@
           <!-- Tabel met teamgenoten -->
           <div id="teammateList">      
               <div style="overflow-x:auto;">
-                  <table id=teammateTable class=teammateTable>
+                  <table id=teammateTable class=teammateTable class="responsive-table" style="width: 85%;">
                     <tr class="tableheading">
                       <th id="voornaam">Voornaam</th>
                       <th id="spelersnummer">Spelersnummer</th>
@@ -60,6 +60,16 @@
               <br>
               <button class="waves-effect waves-light btn-large #b71c1c red darken-4" id="teamVerlaten">Team verlaten</button> 
             </div>
+            <!-- Extra info teamgenoot -->
+            <div id="myModal" class="modal">
+              <div id="modal-content" class="modal-content">
+                <span class="close">&times;</span>
+                <p id="teammateVoornaam">Voornaam: </p>
+                <p id="teammateAchternaam">Achternaam: </p>
+                <p id="teammateMobiel">Mobiel: </p>
+                <p id="teammateSpelernummer">Spelernummer: </p>
+              </div>
+           </div>
 
         </div>
 

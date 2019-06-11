@@ -67,6 +67,18 @@ function setTeamVariables(myJson) {
   setValue("#verloren", myJson.verloren);
 }
 
+function setTeammateInfo(value) {
+  document.querySelector("#teammateVoornaam").innerHTML = "Voornaam: ";
+  document.querySelector("#teammateAchternaam").innerHTML = "Achternaam: ";
+  document.querySelector("#teammateMobiel").innerHTML = "Mobiel: ";
+  document.querySelector("#teammateSpelernummer").innerHTML = "Spelernummers: ";
+  setValue("#teammateVoornaam", value.voornaam);
+  setValue("#teammateAchternaam", value.achternaam);
+  setValue("#teammateMobiel", value.mobiel);
+  setValue("#teammateSpelernummer", value.spelersnummer);
+
+}
+
 function insertTeam(myJson) {
   var table = document.getElementById("teammateTable");
   var i = 1;
@@ -79,18 +91,34 @@ function insertTeam(myJson) {
     cell0.innerHTML = value.voornaam
     cell1.innerHTML = value.spelersnummer
 
-  //   row.addEventListener("click", function() {
-  //     modal.style.display = "block";
+    // Toont extra info van een teamgenoot als er op geklikt wordt.
+    row.addEventListener("click", function() {
+      modal.style.display = "block";
+      // Stopt de extra info van de teamgenoot in de pop-up.
+      setTeammateInfo(value);
+    });
 
-  //   });
-
-  //   i++; Dit kan de functie worden met een modal die extra info toont voor een teamspeler als je erop klikt!!! Is niet zo moeilijk!
+    i++; 
   }
 }
 
 // Een functie die bepaalde values in de webpagina plaatst met behulp van een id.
 function setValue(id, value) {
   document.querySelector(id).innerHTML += value;
+}
+
+// de pop-up voor extra informatie teamgenoot
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
   loadProfile();
