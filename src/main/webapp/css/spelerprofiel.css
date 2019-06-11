@@ -44,6 +44,14 @@ body {
 
 /* Mobile responsive  */
 @media screen and (max-width: 990px) {
+    .logo_demeern {
+        position: relative;
+        height: 180px;
+        width: 180px;
+        left: 0px;
+        top: 10px;
+    }
+    
     .titlesleft {
         position: relative;
         top: 10px;
