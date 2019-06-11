@@ -16,8 +16,10 @@ function loadProfile() {
     }
   })
   .then(function(myJson) {
-    // Hier de functie die de json values in de innerhtml plaatst.
+    // Hier de functie die de teamgegevens op de webpagina plaatst.
+    setTeamVariables(myJson);
     console.log(myJson);
+    // Haalt de teamgenoten van de gebruiker op.
     loadTeammates();
   });
 }
@@ -54,5 +56,21 @@ document.querySelector("#logout_btn").onclick = function(event) {
     sessionStorage.clear();
     window.location = "login.html";
   }
+
+  // De functie die de teamgegevens op de webpagina plaatst.
+function setTeamVariables(myJson) {
+  setValue("#teamnaam", myJson.teamnaam);
+  setValue("#competitie", myJson.competitie);
+  setValue("#trainermail", myJson.trainermail);
+  setValue("#motto", myJson.motto);
+  setValue("#gewonnen", myJson.gewonnen);
+  setValue("#gelijk", myJson.gelijk);
+  setValue("#verloren", myJson.verloren);
+}
+
+// Een functie die bepaalde values in de webpagina plaatst met behulp van een id.
+function setValue(id, value) {
+  document.querySelector(id).innerHTML += value;
+}
 
   loadProfile();

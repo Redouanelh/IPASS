@@ -26,6 +26,34 @@ body {
     width: 170px;
 }
 
+.titlesleft {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 40%;
+    float: left;
+}
+
+.titlesright {
+    position: relative;
+    top: 10px;
+    left: 75px;
+    width: 40%;
+    float: left;
+}
+
+#frame {
+    display: grid;
+      grid-template-columns: 1fr 1fr; /*2 columns van dezelfde verhouding, beide 50% van je scherm */
+      grid-template-rows: 2fr;
+      grid-column-gap: 20px; /* ruimte tussen columns */
+      grid-row-gap: 40px; /* ruimte tussen een row */
+    }
+
+    #myTeam { grid-column: 1; grid-row: 1;} 
+
+    #teammateList { grid-column: 2; grid-row: 1;} 
+
 /* Mobile responsive  */
 @media screen and (max-width: 990px) {
     .logo_demeern {
@@ -36,6 +64,41 @@ body {
         top: 10px;
     }
 
+    .titlesleft {
+        position: relative;
+        top: 10px;
+        left: 10px;
+        width: 47%;
+        float: left;
+    }
+    
+    .titlesright {
+        position: relative;
+        top: 10px;
+        left: 30px;
+        width: 40%;
+        float: left;
+    }
+
+    #frame {
+        display: grid;
+          grid-template-columns: 1fr; 
+          grid-template-rows: 2fr;
+          grid-row-gap: 40px; /* ruimte tussen een row */
+        }
+    
+
+    #teammateList { 
+        grid-column: 1; grid-row: 2;
+        width: 100%;
+    } 
 
 
+    nav {
+        width: 100%;
+    }
+}
+
+p {
+    color: white;
 }

@@ -30,6 +30,37 @@
                 <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html">Log uit</a></li>
           </ul>
 
+        <div id="frame">
+
+          <!-- Teaminformatie -->
+            <div id="myTeam">
+            <div class="titlesleft">
+              <p id="teamnaam" class="card-panel teal #424242 grey darken-3">Team: </p>
+              <p id="competitie" class="card-panel teal #424242 grey darken-3">Competitie: </p>
+              <p id="trainermail" class="card-panel teal #424242 grey darken-3">Trainer: </p>
+              <br><br><br><br>
+              <p id="motto" class="card-panel teal #424242 grey darken-3">Motto: </p>
+            </div>
+            <div class="titlesright">
+              <p id="gewonnen" class="card-panel teal #424242 grey darken-3">Aantal gewonnen: </p>
+              <p id="gelijk" class="card-panel teal #424242 grey darken-3">Aantal gelijk: </p>
+              <p id="verloren" class="card-panel teal #424242 grey darken-3">Aantal verloren: </p>
+            </div>
+          </div>
+          <!-- Tabel met teamgenoten -->
+          <div id="teammateList">      
+              <div style="overflow-x:auto;">
+                  <table id=teammateTable class=teammateTable>
+                    <tr class="tableheading">
+                      <th id="voornaam">Voornaam</th>
+                      <th id="spelersnummer">Spelersnummer</th>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+
+        </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="javascript/team.js"></script>

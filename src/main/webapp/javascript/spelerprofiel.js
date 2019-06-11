@@ -16,9 +16,8 @@ function loadProfile() {
       }
     })
     .then(function(myJson) {
-      // Hier de functie die de json values op de webpagina plaatst.
+      // Hier de functie die de profielgegevens op de webpagina plaatst.
       setProfileVariables(myJson);
-      console.log(myJson);
     });
   }
 
@@ -34,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Sidenav.init(elems, {});
 });
 
+// De functie die de profielgegevens op de webpagina plaatst.
 function setProfileVariables(myJson) {
   setValue("#voornaam", myJson.voornaam);
   if (myJson.tussenvoegsel != undefined) {
@@ -50,6 +50,7 @@ function setProfileVariables(myJson) {
   setValue("#woonplaats", myJson.woonplaats);
 }
 
+// Een functie die bepaalde values in de webpagina plaatst met behulp van een id.
 function setValue(id, value) {
   document.querySelector(id).innerHTML += value;
 }
