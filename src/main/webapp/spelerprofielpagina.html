@@ -30,32 +30,33 @@
               <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html" >Log uit</a></li>
         </ul>
 
-        <div id="myProfile">
-          <div class="titlesleft">
-            <p id="voornaam" class="card-panel teal #424242 grey darken-3">Voornaam: </p>
-            <p id="tussenvoegsel" class="card-panel teal #424242 grey darken-3">Tussenvoegsel: </p>
-            <p id="achternaam" class="card-panel teal #424242 grey darken-3">Achternaam: </p>
-            <p id="geboortedatum" class="card-panel teal #424242 grey darken-3">Geboortedatum: </p>
-            <p id="mobiel" class="card-panel teal #424242 grey darken-3">Mobiel: </p>
-            <p id="teamnaam" class="card-panel teal #424242 grey darken-3">Teamnaam: </p>
-          </div>
-          <div class="titlesright">
-            <p id="straathuisnummer" class="card-panel teal #424242 grey darken-3">Straat & huisnummer: </p>
-            <p id="postcode" class="card-panel teal #424242 grey darken-3">Postcode: </p>
-            <p id="woonplaats" class="card-panel teal #424242 grey darken-3">Woonplaats: </p>
-          </div>
-        </div>
+      <div id="frame">
+          <div id="myProfile">
+              <div class="titlesleft">
+                <p id="voornaam" class="card-panel teal #424242 grey darken-3">Voornaam: </p>
+                <p id="tussenvoegsel" class="card-panel teal #424242 grey darken-3">Tussenvoegsel: </p>
+                <p id="achternaam" class="card-panel teal #424242 grey darken-3">Achternaam: </p>
+                <p id="geboortedatum" class="card-panel teal #424242 grey darken-3">Geboortedatum: </p>
+                <p id="mobiel" class="card-panel teal #424242 grey darken-3">Mobiel: </p>
+                <p id="teamnaam" class="card-panel teal #424242 grey darken-3">Teamnaam: </p>
+              </div>
+              <div class="titlesright">
+                <p id="straathuisnummer" class="card-panel teal #424242 grey darken-3">Straat & huisnummer: </p>
+                <p id="postcode" class="card-panel teal #424242 grey darken-3">Postcode: </p>
+                <p id="woonplaats" class="card-panel teal #424242 grey darken-3">Woonplaats: </p>
+              </div>
+            </div>
+            
+            <!-- Je eigen straat in maps  -->
+            <div class="mapouter">
+              <div class="gmap_canvas">
+                <iframe width="600" height="500" id="gmap_canvas" frameborder="200" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <a href="https://www.pureblack.de"></a>
+              </div>
+              <br>
+            </div>  
+      </div>
         
-        <!-- <div class="mapouter">
-          <div class="gmap_canvas">
-            <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=hooivlinder&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-            <a href="https://www.pureblack.de"></a>
-               De mijn locatie zit nu hardcodede hooivlinder in, dit moet een variabele worden die telkens met straatnaam van gebruiker wordt ingevoerd! -->
-          <!-- </div>
-        </div>  -->
-        kan met setattribute als t goed is en dan die src zetten en bij de q= + myJson.straatnaam
-        
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="javascript/spelerprofiel.js"></script>
   </body>

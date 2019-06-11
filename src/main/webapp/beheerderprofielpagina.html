@@ -27,21 +27,33 @@
                 <li><a id="profiel_btn" class="waves-effect waves-light btn-large #bf360c deep-orange darken-4" href="beheerderprofielpagina.html">Mijn profiel</a></li>
                 <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html">Log uit</a></li>
           </ul>
-
-        <div id="myProfile">
-            <div class="titlesleft">
-              <p id="voornaam" class="card-panel teal #424242 grey darken-3">Voornaam: </p>
-              <p id="tussenvoegsel" class="card-panel teal #424242 grey darken-3">Tussenvoegsel: </p>
-              <p id="achternaam" class="card-panel teal #424242 grey darken-3">Achternaam: </p>
-              <p id="geboortedatum" class="card-panel teal #424242 grey darken-3">Geboortedatum: </p>
-              <p id="mobiel" class="card-panel teal #424242 grey darken-3">Mobiel: </p>
-            </div>
-            <div class="titlesright">
-              <p id="straathuisnummer" class="card-panel teal #424242 grey darken-3">Straat & huisnummer: </p>
-              <p id="postcode" class="card-panel teal #424242 grey darken-3">Postcode: </p>
-              <p id="woonplaats" class="card-panel teal #424242 grey darken-3">Woonplaats: </p>
-            </div>
-          </div>
+       
+        <div id="frame">
+            <div id="myProfile">
+                <div class="titlesleft">
+                  <p id="voornaam" class="card-panel teal #424242 grey darken-3">Voornaam: </p>
+                  <p id="tussenvoegsel" class="card-panel teal #424242 grey darken-3">Tussenvoegsel: </p>
+                  <p id="achternaam" class="card-panel teal #424242 grey darken-3">Achternaam: </p>
+                  <p id="geboortedatum" class="card-panel teal #424242 grey darken-3">Geboortedatum: </p>
+                  <p id="mobiel" class="card-panel teal #424242 grey darken-3">Mobiel: </p>
+                </div>
+                <div class="titlesright">
+                  <p id="straathuisnummer" class="card-panel teal #424242 grey darken-3">Straat & huisnummer: </p>
+                  <p id="postcode" class="card-panel teal #424242 grey darken-3">Postcode: </p>
+                  <p id="woonplaats" class="card-panel teal #424242 grey darken-3">Woonplaats: </p>
+                </div>
+              </div>
+    
+              <!-- Je eigen straat in maps  -->
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                  <iframe width="600" height="500" id="gmap_canvas" frameborder="200" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                  <a href="https://www.pureblack.de"></a>
+                </div>
+                <br>
+            </div>  
+        </div>
+        
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

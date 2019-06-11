@@ -26,7 +26,7 @@ body {
     position: relative;
     top: 10px;
     left: 10px;
-    width: 20%;
+    width: 40%;
     float: left;
 }
 
@@ -34,9 +34,27 @@ body {
     position: relative;
     top: 10px;
     left: 75px;
-    width: 20%;
+    width: 40%;
     float: left;
 }
+
+#frame {
+    display: grid;
+      grid-template-columns: 1fr 1fr; 
+      grid-template-rows: 2fr;
+      grid-row-gap: 40px; /* ruimte tussen een row */
+    }
+
+#myProfile {
+    grid-column: 1; grid-row: 1;
+}
+
+#gmap_canvas {
+    position: relative;
+      grid-column: 2; grid-row: 1;
+      width: 100%x;
+      top: 10px;
+    }
 
 /* Mobile responsive  */
 @media screen and (max-width: 990px) {
@@ -62,6 +80,22 @@ body {
         left: 60px;
         width: 40%;
         float: left;
+    }
+
+    #frame {
+        display: grid;
+          grid-template-columns: 1fr; 
+          grid-template-rows: 2fr;
+          grid-row-gap: 40px; /* ruimte tussen een row */
+        }
+    
+    #gmap_canvas {
+        grid-column: 1; grid-row: 2;
+        width: 300px;
+        left: 10px;
+        top: 10px;
+        bottom: 10px;
+        border: 10px black;
     }
 
     nav {
