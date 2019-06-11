@@ -36,8 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function setProfileVariables(myJson) {
   setValue("#voornaam", myJson.voornaam);
-  setValue("#tussenvoegsel", myJson.tussenvoegsel);
-  setValue("#achternaam", myJson.achternaam);
+  if (myJson.tussenvoegsel != undefined) {
+    setValue("#tussenvoegsel", myJson.tussenvoegsel);
+  } else {
+    setValue("#tussenvoegsel", "Geen tussenvoegsel beschikbaar");
+  }  setValue("#achternaam", myJson.achternaam);
   setValue("#geboortedatum", myJson.geboortedatum);
   setValue("#mobiel", myJson.mobiel);
   setValue("#teamnaam", myJson.teamnaam);

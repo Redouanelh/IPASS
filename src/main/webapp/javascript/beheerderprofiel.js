@@ -16,6 +16,7 @@ function loadProfile() {
       }
     })
     .then(function(myJson) {
+      // Hier de functie die de json values op de webpagina plaatst.
       setProfileVariables(myJson);
       console.log(myJson);
     });
@@ -27,9 +28,19 @@ document.querySelector("#logout_btn").onclick = function(event) {
   window.location = "login.html";
 }
 
+// Responsive sidebar
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {});
+});
+
 function setProfileVariables(myJson) {
   setValue("#voornaam", myJson.voornaam);
-  setValue("#tussenvoegsel", myJson.tussenvoegsel);
+  if (myJson.tussenvoegsel != undefined) {
+    setValue("#tussenvoegsel", myJson.tussenvoegsel);
+  } else {
+    setValue("#tussenvoegsel", "Geen tussenvoegsel beschikbaar");
+  }
   setValue("#achternaam", myJson.achternaam);
   setValue("#geboortedatum", myJson.geboortedatum);
   setValue("#mobiel", myJson.mobiel);
@@ -38,16 +49,9 @@ function setProfileVariables(myJson) {
   setValue("#postcode", myJson.postcode);
   setValue("#woonplaats", myJson.woonplaats);
 }
-    
-// Responsive sidebar
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {});
-});
 
 function setValue(id, value) {
   document.querySelector(id).innerHTML += value;
 }
-
 
 loadProfile();
