@@ -26,6 +26,49 @@ body {
     width: 170px;
 }
 
+.titlesleft {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 20%;
+    float: left;
+}
+
+.titlesright {
+    position: relative;
+    top: 10px;
+    left: 75px;
+    width: 20%;
+    float: left;
+}
+
+/* Mobile responsive  */
+@media screen and (max-width: 990px) {
+    .titlesleft {
+        position: relative;
+        top: 10px;
+        left: 10px;
+        width: 40%;
+        float: left;
+    }
+    
+    .titlesright {
+        position: relative;
+        top: 10px;
+        left: 60px;
+        width: 40%;
+        float: left;
+    }
+
+    nav {
+        width: 100%;
+    }
+}
+
+p {
+    color: white;
+}
+
 /* .mapouter {
     position:relative;text-align:right;height:500px;width:600px;
 }

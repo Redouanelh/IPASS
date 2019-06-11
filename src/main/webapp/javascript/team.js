@@ -22,6 +22,12 @@ function loadProfile() {
   });
 }
 
+// Responsive sidebar
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {});
+});
+
 function loadTeammates() {
   var fetchget = {
     method: 'GET',
@@ -41,6 +47,7 @@ function loadTeammates() {
 
 // Bij team pagina een lijst tonen met al je teamgenoten, team naam, gewonnen/gelijk/verloren en de optie team verlaten, dit wordt dan een update en je wordt in de wachtlijstteam geplaatst.
 
+// ALS JE ALS TEAM AL "WACHTLIJST" HEBT MOET JE NIET KUNNEN VERLATEN! HET SYSTEEM MOET DAN EEN BERICHT GEVEN!
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token
 document.querySelector("#logout_btn").onclick = function(event) {

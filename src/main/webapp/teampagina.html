@@ -4,21 +4,31 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
 		<title>Speler Teampagina</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/team.css">
 	</head>
   <body>
       <nav class="#424242 grey darken-3" style="min-height: 200px;">
           <div class="nav-wrapper">
             <a href="https://www.vvdemeern.nl/" class="brand-logo"><img src="images/logo.png" alt="Logo VV de Meern" class="logo_demeern"></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <br>
               <li><a id="dashboard_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="spelerdashboard.html">Dashboard</a></li>
               <li><a id="profiel_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="spelerprofielpagina.html">Mijn profiel</a></li>
               <li><a id="team_btn" class="waves-effect waves-light btn-large #bf360c deep-orange darken-4" href="teampagina.html">Mijn team</a></li>
-              <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" >Log uit</a></li> 
+              <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html">Log uit</a></li> 
             </ul>
           </div>
         </nav>
+
+        <!-- Voor mobile -->
+        <ul class="sidenav #424242 grey darken-3" id="mobile-demo">
+            <li><a id="dashboard_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="spelerdashboard.html">Dashboard</a></li>
+                <li><a id="profiel_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="spelerprofielpagina.html">Mijn profiel</a></li>
+                <li><a id="team_btn" class="waves-effect waves-light btn-large #bf360c deep-orange darken-4" href="teampagina.html">Mijn team</a></li>
+                <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html">Log uit</a></li>
+          </ul>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

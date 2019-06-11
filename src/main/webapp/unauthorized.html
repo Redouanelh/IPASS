@@ -4,6 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
 		<title>Geen Toegang</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
       body {
           background-color: #ff8615
@@ -22,12 +23,18 @@
       <nav class="#424242 grey darken-3" style="min-height: 200px;">
           <div class="nav-wrapper">
             <a href="https://www.vvdemeern.nl/" class="brand-logo"><img src="images/logo.png" alt="Logo VV de Meern" class="logo_demeern"></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <br>
-              <li><a id="unauthorized_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" style="width: 250px;">Terug naar login</a></li>
+              <li><a id="unauthorized_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" style="width: 250px;" href="login.html">Terug naar login</a></li>
             </ul>
           </div>
         </nav>
+
+        <!-- Voor mobile -->
+        <ul class="sidenav #424242 grey darken-3" id="mobile-demo">
+            <li><a id="unauthorized_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" style="width: 250px;" href="login.html">Terug naar login</a></li>
+          </ul>
 
         <h1 style="color: #424242">U bevat niet de juiste rechten voor<br>het bezoeken van deze pagina!<br><br>Keer terug naar de inlog pagina<br>en probeer het opnieuw. </h1>
 
@@ -36,7 +43,11 @@
         sessionStorage.clear();
         window.location = "login.html";
         }
-        
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, {});
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
