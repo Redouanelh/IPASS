@@ -45,7 +45,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return beheerders;
 	}
 
@@ -84,7 +84,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return beheerder;
 	}
 	
@@ -122,7 +122,7 @@ public class BeheerderPostgresDaoImpl extends PostgresBaseDao implements Beheerd
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return beheerder;
 	}
 	

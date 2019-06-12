@@ -45,13 +45,13 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return spelers;
 	}
 
 	@Override
 	public Speler getSpelerByUsername(String username) {
-		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.spelersnummer, g.geboortedatum, g.mobiel, g.team, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats\r\n" + 
+		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.wachtwoord, g.spelersnummer, g.geboortedatum, g.mobiel, g.team, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats\r\n" + 
 						"from gebruikers g, adres a " + 
 						"where g.adresid = a.adresid " + 
 						"and g.voornaam = ?";
@@ -70,6 +70,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 				speler.setVoornaam(myRs.getString("voornaam"));
 				speler.setTussenvoegsel(myRs.getString("tussenvoegsel"));
 				speler.setAchternaam(myRs.getString("achternaam"));
+				speler.setWachtwoord(myRs.getString("wachtwoord"));
 				speler.setSpelersnummer(myRs.getInt("spelersnummer"));
 				speler.setGeboortedatum(myRs.getDate("geboortedatum"));
 				speler.setMobiel(myRs.getInt("mobiel"));
@@ -85,7 +86,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return speler;
 	}
 	
@@ -125,7 +126,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 			} catch (Exception e) {
 				e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return speler;	
 	}
 	

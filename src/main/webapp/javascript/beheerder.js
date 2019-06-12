@@ -20,6 +20,10 @@ function loadVerzoeken() {
   });
 }
 
+// Als je een teamverzoek verzend, geef dan ook een spelernummer mee, want wachtlijstmensen hebben spelersnummer 0., of bij beheerder als hij accept
+// dan moet hij een random nummer genereren en meegeven en setten voor de speler. 
+// Misschien random nummer genereren, of gewoon zeggen dat ze zelf mogen inputten en dan als formparam setten.
+
 // Responsive sidebar
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');

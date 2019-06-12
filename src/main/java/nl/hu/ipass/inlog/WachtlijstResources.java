@@ -1,14 +1,19 @@
 package nl.hu.ipass.inlog;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import nl.hu.ipass.domain.Adres;
@@ -220,9 +225,6 @@ public class WachtlijstResources {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			
 			job.add("voornaam", s.getVoornaam());
-			if (s.getTussenvoegsel() != null) {
-				job.add("tussenvoegsel", speler.getTussenvoegsel());
-			}
 			job.add("achternaam", s.getAchternaam());
 			job.add("spelersnummer", s.getSpelersnummer());
 			job.add("mobiel", s.getMobiel());
@@ -231,6 +233,39 @@ public class WachtlijstResources {
 		}
 		JsonArray array = jab.build();
 		return array.toString();
+	}
+	
+	@PUT
+	@Path("/teamverlaten")
+	@RolesAllowed("J")
+	@Produces("application/json")
+	public Response teamVerlaten(@Context SecurityContext sc
+								 ) { // Team verlaten, zet de team op 'Wachtlijst' en de spelersnummer op 0.
+		
+		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
+		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();
+		
+		String username = sc.getUserPrincipal().getName();
+		Speler speler = spelerdao.getSpelerByUsername(username);
+		
+		// Check of speler al op de wachtlijst zit.
+		if(speler.getTeam().getTeam().equals("Wachtlijst")) {
+			Map<String, String> messages = new HashMap<String, String>();
+			messages.put("error", "Speler bevind zich al op de Wachtlijst!!");
+			return Response.status(409).entity(messages).build(); 
+		}
+		
+		speler.setTeam(teamdao.findTeamByName("Wachtlijst"));
+		speler.setSpelersnummer(0);
+		
+		// Check of de speler succesful heeft kunnen updaten.
+		if(!spelerdao.updateSpeler(speler)) {
+			Map<String, String> messages = new HashMap<String, String>();
+			messages.put("error", "Speler heeft niet kunnen updaten!");
+			return Response.status(409).entity(messages).build(); 
+		}
+		
+		return Response.ok(speler).build();
 	}
 		
 }

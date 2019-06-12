@@ -16,11 +16,14 @@ function loadProfile() {
     }
   })
   .then(function(myJson) {
-    // Hier de functie die de teamgegevens op de webpagina plaatst.
+    // Functie die de teamgegevens op de webpagina plaatst.
     setTeamVariables(myJson);
     console.log(myJson);
     // Haalt de teamgenoten van de gebruiker op.
     loadTeammates();
+    // Voert alvast de persoonsid in van de speler voor het verlaten van een team.
+    document.querySelector("#persoonsidmodal").setAttribute("value", myJson.id);
+
   });
 }
 
@@ -42,13 +45,41 @@ function loadTeammates() {
     return response.json();
   })
   .then(function(myJson) {
-    //Hier de functie aanroepen voor tabel vullen, maar niet de tabel vullen functie hier schrijven anders wordt t onoverzichtelijk.
+    //Hier de functie aanroepen voor tabel vullen.
     insertTeam(myJson);
     console.log(myJson);
   });
 }
 
-// ALS JE ALS TEAM AL "WACHTLIJST" HEBT MOET JE NIET KUNNEN VERLATEN! HET SYSTEEM MOET DAN EEN BERICHT GEVEN!, de teamverlaten optie is een update geen delete!
+// Team verlaten functie
+function leaveTeam() {
+  var formData = new FormData(document.querySelector("#teamVerlatenForm"))
+  var encData = new URLSearchParams(formData.entries());
+  var fetchupdate = {
+    method: 'PUT',
+    headers: {
+      'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+    },
+    body: encData
+  }
+
+  fetch('restservices/wachtlijstsysteem/teamverlaten', fetchupdate)
+      .then(function(response) {
+        if (response.ok) {
+          document.getElementById('foutmelding').style.display = "none";
+          modalTeamVerlaten.style.display = "none";
+          return response.json();
+        } else {
+          document.getElementById('foutmelding').style.display = "block";
+          return;
+        }
+      })
+      .then(function(myJson) {
+      clearTable();
+      loadProfile();
+        
+      });
+}
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token
 document.querySelector("#logout_btn").onclick = function(event) {
@@ -58,6 +89,13 @@ document.querySelector("#logout_btn").onclick = function(event) {
 
   // De functie die de teamgegevens op de webpagina plaatst.
 function setTeamVariables(myJson) {
+  document.querySelector("#teamnaam").innerHTML = "Team: ";
+  document.querySelector("#competitie").innerHTML = "Competitie: ";
+  document.querySelector("#trainermail").innerHTML = "Trainer: ";
+  document.querySelector("#motto").innerHTML = "Motto: ";
+  document.querySelector("#gewonnen").innerHTML = "Aantal gewonnen: ";
+  document.querySelector("#gelijk").innerHTML = "Aantal gelijk: ";
+  document.querySelector("#verloren").innerHTML = "Aantal verloren: ";
   setValue("#teamnaam", myJson.teamnaam);
   setValue("#competitie", myJson.competitie);
   setValue("#trainermail", myJson.trainermail);
@@ -71,7 +109,7 @@ function setTeammateInfo(value) {
   document.querySelector("#teammateVoornaam").innerHTML = "Voornaam: ";
   document.querySelector("#teammateAchternaam").innerHTML = "Achternaam: ";
   document.querySelector("#teammateMobiel").innerHTML = "Mobiel: ";
-  document.querySelector("#teammateSpelernummer").innerHTML = "Spelernummers: ";
+  document.querySelector("#teammateSpelernummer").innerHTML = "Spelernummer: ";
   setValue("#teammateVoornaam", value.voornaam);
   setValue("#teammateAchternaam", value.achternaam);
   setValue("#teammateMobiel", value.mobiel);
@@ -102,6 +140,16 @@ function insertTeam(myJson) {
   }
 }
 
+// Tabel leeg gooien.
+function clearTable() {
+  var list = document.querySelectorAll("tr");
+  var i = 1;
+  while (i < list.length) {
+    document.getElementById("teammateTable").deleteRow(1);
+    i++;
+  }
+}
+
 // Een functie die bepaalde values in de webpagina plaatst met behulp van een id.
 function setValue(id, value) {
   document.querySelector(id).innerHTML += value;
@@ -119,6 +167,34 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+
+// de pop-up voor team verlaten.
+var modalTeamVerlaten = document.getElementById("myModalTeamverlaten");
+var span2 = document.getElementsByClassName("close2")[0];
+
+span2.onclick = function() {
+  document.getElementById('foutmelding').style.display = "none";
+  modalTeamVerlaten.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modalTeamVerlaten) {
+    document.getElementById('foutmelding').style.display = "none";
+    modalTeamVerlaten.style.display = "none";
+  }
+}
+
+document.querySelector("#teamVerlaten").onclick = function(event) {
+  document.getElementById('foutmelding').style.display = "none";
+  modalTeamVerlaten.style.display = "block";
+
+  document.querySelector("#teamVerlatenBevestiging").onclick = function(event) {
+    leaveTeam();
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
 }
 
   loadProfile();

@@ -41,7 +41,8 @@ function setProfileVariables(myJson) {
     setValue("#tussenvoegsel", myJson.tussenvoegsel);
   } else {
     setValue("#tussenvoegsel", "Geen tussenvoegsel beschikbaar");
-  }  setValue("#achternaam", myJson.achternaam);
+  }  
+  setValue("#achternaam", myJson.achternaam);
   setValue("#geboortedatum", myJson.geboortedatum);
   setValue("#mobiel", myJson.mobiel);
   setValue("#teamnaam", myJson.teamnaam);

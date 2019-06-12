@@ -70,6 +70,27 @@
                 <p id="teammateSpelernummer">Spelernummer: </p>
               </div>
            </div>
+           <!-- Team verlaten pop-up -->
+           <div id="myModalTeamverlaten" class="modal">
+            <div id="modal-content" class="modal-content">
+              <span class="close2">&times;</span>
+              <center style="color: white">Let op!<br><br>Het kan een tijd duren voordat er weer een plek ontstaat in een team.</center>
+              <br>
+              <form id="teamVerlatenForm">
+                  <center><label id="foutmelding" style="display: none" style="color: white;"><b>Teamwijziging niet gelukt!</b></label></center>
+                  <br>
+                  <div class="row">
+                      <div class="input-field col s12">
+                        <input disabled id="persoonsidmodal" type="text" class="persoonsidmodal" name="persoonsidmodal" style="color:#ff6d00">
+                        <input disabled value="Wachtlijst" id="disabled" type="text" class="teamnaammodal" name="teamnaam" style="color: white">
+                        <label style="color: white" for="teamnaammodal">ID, Team & spelersnummer;</label>
+                        <input disabled value="0" id="disabled" type="text" class="spelersnummermodal" name="spelersnummer" style="color: white">
+                      </div>
+                  </div>
+                <center><button class="waves-effect waves-light btn-large #b71c1c red darken-4" id="teamVerlatenBevestiging">Bevestig teamverlating</button></center>
+              </form>
+            </div>
+         </div>
 
         </div>
 

@@ -40,7 +40,7 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-		System.out.println(result);
+//		System.out.println(result);
 		return teams;	
 	}
 
@@ -75,7 +75,7 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return team;
 	}
 
@@ -122,7 +122,7 @@ public class TeamPostgresDaoImpl extends PostgresBaseDao implements TeamDao {
 		Team team = findTeamByName(teamname);
 		team.setSpelers(spelers);
 		
-		System.out.println(result);
+//		System.out.println(result);
 		return spelers;
 	}
 	
