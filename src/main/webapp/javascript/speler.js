@@ -67,7 +67,7 @@ function clearTable() {
   var list = document.querySelectorAll("tr");
   var i = 1;
   while (i < list.length) {
-    document.getElementById("teammateTable").deleteRow(1);
+    document.getElementById("verzoekTable").deleteRow(1);
     i++;
   }
 }

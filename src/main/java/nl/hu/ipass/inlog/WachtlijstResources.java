@@ -48,23 +48,30 @@ public class WachtlijstResources {
 		
 		if (team.getTeam().equals("Wachtlijst")) { // Check of je wel op de wachtlijst zit, en niet al in een officiëel team.
 			
-			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.
+			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.		
 			if (teamdao.getSpelersFromTeam("JO19").size() < 12 ) {
 				job.add("melding", "JO19");
-			} else if (teamdao.getSpelersFromTeam("JO18").size() < 12 ) {
+				jab.add(job);
+			}
+			if (teamdao.getSpelersFromTeam("JO18").size() < 12 ) {
 				job.add("melding", "JO18");
-			} else if (teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
+				jab.add(job);
+			}
+			if (teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
 				job.add("melding", "JO17");
-			} else {
-				job.add("melding", "Er zijn helaas geen teams beschikbaar, Probeer het later opnieuw.");
+				jab.add(job);
+			}
+			if (teamdao.getSpelersFromTeam("JO19").size() < 12 && teamdao.getSpelersFromTeam("JO18").size() < 12 && teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
+				job.add("melding", "Er zijn helaas geen teams beschikbaar, probeer het later opnieuw.");
+				jab.add(job);
 			}
 			
 		} else {
 			// Je hebt 'Wachtlijst' niet als team.
 			job.add("melding", "U bevind zich al in een team!");
+			jab.add(job);
 		}
 		
-		jab.add(job);
 		JsonArray array = jab.build();
 		
 		return array.toString();
