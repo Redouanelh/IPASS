@@ -43,17 +43,18 @@ public class WachtlijstResources {
 		Speler speler = spelerdao.getSpelerByUsername(username);
 		Team team = speler.getTeam();
 		
+		JsonArrayBuilder jab = Json.createArrayBuilder();
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		if (team.getTeam().equals("Wachtlijst")) { // Check of je wel op de wachtlijst zit, en niet al in een officiëel team.
 			
 			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.
 			if (teamdao.getSpelersFromTeam("JO19").size() < 12 ) {
-				job.add("teamjo19", "JO19");
+				job.add("melding", "JO19");
 			} else if (teamdao.getSpelersFromTeam("JO18").size() < 12 ) {
-				job.add("teamjo18", "JO18");
+				job.add("melding", "JO18");
 			} else if (teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
-				job.add("teamjo17", "JO17");
+				job.add("melding", "JO17");
 			} else {
 				job.add("melding", "Er zijn helaas geen teams beschikbaar, Probeer het later opnieuw.");
 			}
@@ -63,20 +64,34 @@ public class WachtlijstResources {
 			job.add("melding", "U bevind zich al in een team!");
 		}
 		
-		String obj = job.build().toString();
-		return obj;
+		jab.add(job);
+		JsonArray array = jab.build();
+		
+		return array.toString();
 	}
 	
 	@GET
 	@Path("/beheerderdashboard")
 	@RolesAllowed("N")
 	@Produces("application/json")
-	public String getVerzoeken() { // Haalt de opgegeven verzoeken op.
+	public String getVerzoeken(@Context SecurityContext sc) { // Haalt de opgegeven verzoeken op.
 		
 		VerzoekPostgresDaoImpl verzoekdao = new VerzoekPostgresDaoImpl();
 		
+		String username = sc.getUserPrincipal().getName();
+		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
+		// Check of er überhaupt wel verzoeken zijn
+		if (verzoekdao.getAllVerzoeken().size() == 0) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("melding", "Momenteel geen openstaande verzoeken beschikbaar.");
+			
+			jab.add(job);
+			JsonArray array = jab.build();
+			return array.toString();
+		}
+			
 		for (Verzoek v : verzoekdao.getAllVerzoeken()) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("teamverzoek", v.getTeamverzoek());
@@ -86,11 +101,7 @@ public class WachtlijstResources {
 		}
 		JsonArray array = jab.build();
 		return array.toString();
-	}
-	
-	
-	//Als je jezelf uit team wilt verwijderen gwn update speler doen en dan de de speler setteam(wachtlijst) doen.
-	
+	}	
 	
 	@GET
 	@Path("/spelerprofile")

@@ -28,15 +28,41 @@
                 <li><a id="logout_btn" class="waves-effect waves-light btn-large #ff6d00 orange accent-4" href="login.html">Log uit</a></li>
           </ul>
 
-        
+          <div id="frame">
 
-            <!-- Als je een verzoek hebt ingediend moet je wel die verzoek uit de tabel van verzoek indienen halen -->
+              <div class="row">
+                <div class="col s12 m6">
+                  <div class="card blue-grey darken-1">
+                    <div id="welkomstbericht" class="card-content #424242 grey darken-3 white-text">
+                      <span id="cardtitle" class="card-title">Welkom </span>
+                      <p>Dit systeem is gecreërd met oog op het eindproject van de eerste jaar op het HU!<br><br>
+                         </p>
+                    </div>
+                    <div class="card-action #424242 grey darken-3">
+                      <a id="tableTrigger" style="cursor: pointer;">Toon verzoeken</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div id="verzoekList">      
+                  <div style="overflow-x:auto;">
+                      <table id=verzoekTable class=verzoekTable class="responsive-table" style="width: 85%;">
+                        <tr class="tableheading">
+                          <th id="id">PersoonsID:</th>
+                          <th id="team">Verzoek voor:</th>
+                        </tr>
+                      </table>
+                  </div>
+                </div>
+  
+                            <!-- Als je een verzoek hebt ingediend moet je wel die verzoek uit de tabel van verzoek indienen halen -->
 
-          <!-- https://www.um.es/docencia/barzana/materializecss/cards.html gebruiken voor de info aan linker kant van pagina
-          Aan rechterkant van pagina komt de tabel met verzoeken -->
-          <!-- Aan de linker kant stukje tekst doen met 
-          ''welkom op de dashboard + rol + voornaam + van het WL-Systeem blablabla.'' Dit systeem is gecreërd met oog op het eindproject van de eerste jaar op het HU! -->
+            </div>        
 
+            <!-- Random spelernummer genereren in javascript met form param en die .random ofzo -->
+            <!-- https://learn.freecodecamp.org/javascript-algorithms-and-data-structures/basic-javascript/generate-random-whole-numbers-with-javascript/ -->
+         
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="javascript/beheerder.js"></script>

@@ -26,7 +26,28 @@ body {
     width: 170px;
 }
 
+#frame {
+    display: grid;
+      grid-template-columns: 1fr 1fr; /*2 columns van dezelfde verhouding, beide 50% van je scherm */
+      grid-template-rows: 2fr;
+      grid-column-gap: 20px; /* ruimte tussen columns */
+      grid-row-gap: 40px; /* ruimte tussen een row */
+    }
+
+#verzoek_btn {
+    float: right;
+}
+
 /* Mobile responsive  */
+
+@media screen and (min-width: 991px) {
+    .card {
+        position: relative;
+        width: 210%;
+        top: 10px;  
+    }
+}
+
 @media screen and (max-width: 990px) {
     .logo_demeern {
         position: relative;
@@ -36,8 +57,32 @@ body {
         top: 10px;
     }
 
+    #verzoekTable {
+        position: relative;
+        left: 10px;
+    }
+
+    #frame {
+        display: grid;
+          grid-template-columns: 1fr; 
+          grid-template-rows: 2fr;
+          grid-row-gap: 10px; /* ruimte tussen een row */
+        }
 
     nav {
         width: 100%;
     }
+
+    @media screen and (min-width: 600px) {
+        #welkomstbericht {
+            width: 200%;
+        }
+
+        .card-action {
+            width: 200%;
+        }
+
+    }
+
+
 }
