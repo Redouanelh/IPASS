@@ -8,7 +8,9 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,13 +31,32 @@ import nl.hu.ipass.persistance.VerzoekPostgresDaoImpl;
 @Path("/wachtlijstsysteem")
 public class WachtlijstResources {
 	
-//	@PUT
-//	@Path("/verzoekindienen")
-//	@RolesAllowed("J")
-//	@Produces("application/json")
-//	public Response verzoekIndienen()
-//		
-//	met de sc.getuser de persoonsid ophalen en dan de team die meegestuurd is gebruiken om een verzoek toe te voegen.
+	@POST
+	@Path("/verzoekindienen")
+	@RolesAllowed("J")
+	@Produces("application/json")
+	public Response verzoekIndienen(@Context SecurityContext sc,
+									@FormParam("teamverzoek")String teamverzoek) {
+		
+		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
+		VerzoekPostgresDaoImpl verzoekdao = new VerzoekPostgresDaoImpl();
+		
+		String username = sc.getUserPrincipal().getName();
+		Speler speler = spelerdao.getSpelerByUsername(username);
+		System.out.println(teamverzoek);
+		
+		Verzoek verzoek = new Verzoek(speler, teamverzoek);
+		System.out.println(verzoek.getSpeler().getPersoonsID() + " " + verzoek.getTeamverzoek());
+		
+		if (!verzoekdao.addVerzoek(verzoek)) {
+			Map<String, String> messages = new HashMap<String, String>();
+			messages.put("error", "Verzoek niet kunnen toevoegen!");
+			return Response.status(409).entity(messages).build();
+		}
+	
+		return Response.ok(verzoek).build();
+	}
+
 	
 	@GET
 	@Path("/spelerdashboard")
@@ -115,6 +136,7 @@ public class WachtlijstResources {
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
+		
 		return array.toString();
 	}	
 	

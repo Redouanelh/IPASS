@@ -36,7 +36,6 @@ public class AdresPostgresDaoImpl extends PostgresBaseDao implements AdresDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		return adres;
 	}
 	

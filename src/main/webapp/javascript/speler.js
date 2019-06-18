@@ -26,24 +26,29 @@ function loadTeamSpots() {
   });
 }
 
-// Als je een teamverzoek verzend, geef dan ook een spelernummer mee, want wachtlijstmensen hebben spelersnummer 0., of bij beheerder als hij accept
-// dan moet hij een random nummer genereren en meegeven en setten voor de speler. 
-// Misschien random nummer genereren, of gewoon zeggen dat ze zelf mogen inputten en dan als formparam setten.
-
 // Responsive sidebar
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, {});
 });
 
+// In de backend wordt gecheckt of je al in een officiëel team zit of niet.
 function insertVerzoek(myJson) {
   var table = document.getElementById("verzoekTable");
+  var hiddenInput = document.getElementById("hiddenInput");
   var i = 1;
+
+  // Als er geen teams beschikbaar zijn.
+  if (myJson.length == 0) {
+    var row = table.insertRow(i);
+    cell0 = row.insertCell(0);
+    cell0.innerHTML = "Momenteel geen teams beschikbaar.";
+  }
 
   for (const value of myJson) {
     const row = table.insertRow(i);
     row.setAttribute("id", value.melding);
-    row.setAttribute("name", "teamverzoek")
+    row.setAttribute("name", "teamverzoek");
     row.setAttribute("value", value.melding);
     cell0 = row.insertCell(0);
     cell1 = row.insertCell(1);
@@ -53,9 +58,10 @@ function insertVerzoek(myJson) {
     if (value.melding == "JO19" || value.melding == "JO18" || value.melding == "JO17") {
       cell1.innerHTML = "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_btn'>Verzoek indienen</button>";
 
-      // Haalt de teamnaam van voor het verzoek op.
+      // Haalt de teamnaam van voor het verzoek op en roept de functie voor het indienen van een verzoek aan.
       cell1.addEventListener("click", function() {
         var team = row.getAttribute("id");
+        hiddenInput.setAttribute("value", team);
 
         verzoekIndienen(team);
         event.stopPropagation(); // Zodat de pagina niet refresht door de <form>.
@@ -72,15 +78,16 @@ function insertVerzoek(myJson) {
 function verzoekIndienen(team) {
     var formData = new FormData(document.querySelector("#verzoekForm"))
     var encData = new URLSearchParams(formData.entries());
-    var fetchupdate = {
-      method: 'PUT',
+    var fetchadd = {
+      method: 'POST',
       headers: {
+
         'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
       },
       body: encData
     }
-  
-    fetch('restservices/wachtlijstsysteem/verzoekindienen', fetchupdate)
+
+    fetch('restservices/wachtlijstsysteem/verzoekindienen', fetchadd)
         .then(function(response) {
           if (response.ok) {
             document.getElementById('foutmelding').style.display = "none";
@@ -88,13 +95,13 @@ function verzoekIndienen(team) {
 
             return response.json();
           } else {
-
             document.getElementById('foutmelding').style.display = "block"; // Toon foutmelding.
+
             return;
           }
         })
         .then(function(myJson) {
-
+          console.log(myJson);
         });
   }
 
