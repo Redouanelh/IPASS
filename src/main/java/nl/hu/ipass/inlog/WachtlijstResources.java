@@ -29,6 +29,14 @@ import nl.hu.ipass.persistance.VerzoekPostgresDaoImpl;
 @Path("/wachtlijstsysteem")
 public class WachtlijstResources {
 	
+//	@PUT
+//	@Path("/verzoekindienen")
+//	@RolesAllowed("J")
+//	@Produces("application/json")
+//	public Response verzoekIndienen()
+//		
+//	met de sc.getuser de persoonsid ophalen en dan de team die meegestuurd is gebruiken om een verzoek toe te voegen.
+	
 	@GET
 	@Path("/spelerdashboard")
 	@RolesAllowed("J")
@@ -285,5 +293,5 @@ public class WachtlijstResources {
 		
 		return Response.ok(speler).build();
 	}
-		
+	
 }

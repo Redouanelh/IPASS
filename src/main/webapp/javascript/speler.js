@@ -42,7 +42,9 @@ function insertVerzoek(myJson) {
 
   for (const value of myJson) {
     const row = table.insertRow(i);
-    row.setAttribute("team", value.melding);
+    row.setAttribute("id", value.melding);
+    row.setAttribute("name", "teamverzoek")
+    row.setAttribute("value", value.melding);
     cell0 = row.insertCell(0);
     cell1 = row.insertCell(1);
     cell0.innerHTML = value.melding;
@@ -50,11 +52,59 @@ function insertVerzoek(myJson) {
     // Alleen de verzoekbutton toevoegen als er daadwerkelijk voor jou een team beschikbaar is.
     if (value.melding == "JO19" || value.melding == "JO18" || value.melding == "JO17") {
       cell1.innerHTML = "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_btn'>Verzoek indienen</button>";
+
+      // Haalt de teamnaam van voor het verzoek op.
+      cell1.addEventListener("click", function() {
+        var team = row.getAttribute("id");
+
+        verzoekIndienen(team);
+        event.stopPropagation(); // Zodat de pagina niet refresht door de <form>.
+        event.preventDefault();
+      });
+
     }
 
     i++; 
   }
+
 }
+
+function verzoekIndienen(team) {
+    var formData = new FormData(document.querySelector("#verzoekForm"))
+    var encData = new URLSearchParams(formData.entries());
+    var fetchupdate = {
+      method: 'PUT',
+      headers: {
+        'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+      },
+      body: encData
+    }
+  
+    fetch('restservices/wachtlijstsysteem/verzoekindienen', fetchupdate)
+        .then(function(response) {
+          if (response.ok) {
+            document.getElementById('foutmelding').style.display = "none";
+            deleteSelectedRow(team);
+
+            return response.json();
+          } else {
+
+            document.getElementById('foutmelding').style.display = "block"; // Toon foutmelding.
+            return;
+          }
+        })
+        .then(function(myJson) {
+
+        });
+  }
+
+
+// Een rij uit tabel verwijderen.
+function deleteSelectedRow(team) {
+  var row = document.getElementById(team)
+  row.parentNode.removeChild(row);
+}
+
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token
 document.querySelector("#logout_btn").onclick = function(event) {
