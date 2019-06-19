@@ -32,6 +32,8 @@ import nl.hu.ipass.persistance.VerzoekPostgresDaoImpl;
 @Path("/wachtlijstsysteem")
 public class WachtlijstResources {
 	
+	// Bij verzoek accepteren als je setSpelernummer doet een random nummer meegeven hier.
+	
 	@DELETE
 	@Path("/verzoekweigeren")
 	@RolesAllowed("N")
@@ -46,10 +48,6 @@ public class WachtlijstResources {
 		Speler speler = spelerdao.getSpelerById(persoonsid);
 		
 		Verzoek verzoek = new Verzoek(speler, teamverzoek);
-		
-		System.out.println(speler.getVoornaam() + " " + teamverzoek);
-
-		System.out.println(verzoek.getSpeler().getPersoonsID() + " " + verzoek.getTeamverzoek());
 
 		if (!verzoekdao.deleteVerzoek(verzoek)) { // Niet deleteByPersoonsid gebruiken, je wilt namelijk maar één verzoek verwijderen en niet alle verzoeken van 1 persoon die ook voor andere teams kunnen zijn.
 			Map<String, String> messages = new HashMap<String, String>();

@@ -49,12 +49,28 @@ function insertVerzoek(myJson) {
     cell0 = row.insertCell(0);
 
     if (value.melding != "Momenteel geen openstaande verzoeken beschikbaar.") {
-      cell1 = row.insertCell(1);
-      cell0.innerHTML = value.persoonsid;
-      cell1.innerHTML = value.teamverzoek + "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_weigeren'>X</button>"
-                                          + "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_accepteren'>✔</button>";
+      cell1 = row.insertCell(1); // De teamnaam
+      cell2 = row.insertCell(2); // Verzoek accepteren
+      cell3 = row.insertCell(3); // Verzoek weigeren
 
-      cell1.addEventListener("click", function() {
+      cell0.innerHTML = value.persoonsid;
+      cell1.innerHTML = value.teamverzoek;
+      cell2.innerHTML = "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_accepteren' style='width: 100%;'>✔</button>";
+      cell3.innerHTML = "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_weigeren' style='width: 100%;'>X</button>";
+
+      // Verzoek accepteren button
+      cell2.addEventListener("click", function() {
+        var team = row.getAttribute("id");
+        hittenInput.setAttribute("value", team);
+        hiddenInput2.setAttribute("value", value.persoonsid);
+
+        verzoekAccepteren(team);
+        event.stopPropagation();
+        event.preventDefault();
+      })
+     
+      // Verzoek weigeren button
+      cell3.addEventListener("click", function() {
         var team = row.getAttribute("id");
         hiddenInput.setAttribute("value", team);
         hiddenInput2.setAttribute("value", value.persoonsid);
@@ -63,12 +79,17 @@ function insertVerzoek(myJson) {
         event.stopPropagation(); // Zodat de pagina niet refresht door de <form>.
         event.preventDefault();
       });
+
     } else {
       cell0.innerHTML = value.melding;
     }
 
     i++; 
   }
+}
+
+function verzoekAccepteren(team) {
+
 }
 
 function verzoekWeigeren(team) {
@@ -96,10 +117,6 @@ function verzoekWeigeren(team) {
         
       }
     });
-}
-
-function verzoekAccepteren() {
-
 }
 
 // Tabel leeg gooien.
