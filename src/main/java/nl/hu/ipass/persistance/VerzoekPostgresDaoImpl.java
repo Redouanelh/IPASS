@@ -36,7 +36,7 @@ public class VerzoekPostgresDaoImpl extends PostgresBaseDao implements VerzoekDa
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println(result);
+//			System.out.println(result);
 			return verzoeken;
 	}
 
@@ -66,7 +66,7 @@ public class VerzoekPostgresDaoImpl extends PostgresBaseDao implements VerzoekDa
 			} catch (Exception e) {
 				e.printStackTrace();
 		}
-		System.out.println(result);
+//		System.out.println(result);
 		return verzoek;	
 	}
 
@@ -88,9 +88,35 @@ public class VerzoekPostgresDaoImpl extends PostgresBaseDao implements VerzoekDa
 		}
 		return verzoekAdded;
 	}
-
+	
 	@Override
 	public boolean deleteVerzoek(Verzoek v) {
+		boolean verzoekExist = getVerzoekByPersoonsid(v.getSpeler().getPersoonsID()) != null;
+		boolean verzoekDeleted = false;
+		
+		if(verzoekExist) {
+			String query = "delete from verzoeken where teamverzoek = ? and persoonsid = ?";
+			
+			try (Connection conn = super.getConnection()) {
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, v.getTeamverzoek());
+				pstmt.setInt(2, v.getSpeler().getPersoonsID());
+				verzoekDeleted = pstmt.executeUpdate() > 0;
+				pstmt.close();
+				System.out.println("Verzoek deleted: " + verzoekDeleted);
+								
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Verzoek bestaat niet");
+		}
+		
+		return verzoekDeleted;
+	}
+
+	@Override
+	public boolean deleteVerzoekByTeamverzoek(Verzoek v) {
 		boolean verzoekExist = getVerzoekByPersoonsid(v.getSpeler().getPersoonsID()) != null;
 		boolean verzoekDeleted = false;
 		
@@ -100,6 +126,31 @@ public class VerzoekPostgresDaoImpl extends PostgresBaseDao implements VerzoekDa
 			try (Connection conn = super.getConnection()) {
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, v.getTeamverzoek());
+				verzoekDeleted = pstmt.executeUpdate() > 0;
+				pstmt.close();
+				System.out.println("Verzoek deleted: " + verzoekDeleted);
+								
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Verzoek bestaat niet");
+		}
+		
+		return verzoekDeleted;
+	}
+
+	@Override
+	public boolean deleteVerzoekByPersoonsid(Verzoek v) {
+		boolean verzoekExist = getVerzoekByPersoonsid(v.getSpeler().getPersoonsID()) != null;
+		boolean verzoekDeleted = false;
+		
+		if(verzoekExist) {
+			String query = "delete from verzoeken where persoonsid = ?";
+			
+			try (Connection conn = super.getConnection()) {
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, v.getSpeler().getPersoonsID());
 				verzoekDeleted = pstmt.executeUpdate() > 0;
 				pstmt.close();
 				System.out.println("Verzoek deleted: " + verzoekDeleted);

@@ -49,7 +49,6 @@ function insertVerzoek(myJson) {
     const row = table.insertRow(i);
     row.setAttribute("id", value.melding);
     row.setAttribute("name", "teamverzoek");
-    row.setAttribute("value", value.melding);
     cell0 = row.insertCell(0);
     cell1 = row.insertCell(1);
     cell0.innerHTML = value.melding;
@@ -91,10 +90,12 @@ function verzoekIndienen(team) {
         .then(function(response) {
           if (response.ok) {
             document.getElementById('foutmelding').style.display = "none";
+            document.getElementById('goedmelding').style.display = "block"; // Toon melding dat het gelukt is.
             deleteSelectedRow(team);
 
             return response.json();
           } else {
+            document.getElementById('goedmelding').style.display = "none"; 
             document.getElementById('foutmelding').style.display = "block"; // Toon foutmelding.
 
             return;

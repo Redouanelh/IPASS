@@ -9,5 +9,8 @@ public interface VerzoekDao {
 	public Verzoek getVerzoekByPersoonsid(int id);
 	public boolean addVerzoek(Verzoek v);
 	public boolean deleteVerzoek(Verzoek v);
+	public boolean deleteVerzoekByTeamverzoek(Verzoek v);
+	public boolean deleteVerzoekByPersoonsid(Verzoek v);
+
 	
 }

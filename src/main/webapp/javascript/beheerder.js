@@ -38,12 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function insertVerzoek(myJson) {
   var table = document.getElementById("verzoekTable");
+  var hiddenInput = document.getElementById("hiddenInput");
+  var hiddenInput2 = document.getElementById("hiddenInput2");
   var i = 1;
 
   for (const value of myJson) {
     const row = table.insertRow(i);
-    row.setAttribute("id", value.persoonsid);
-    row.setAttribute("team", value.teamverzoek);
+    row.setAttribute("id", value.teamverzoek);
+    row.setAttribute("name", "teamverzoek");
     cell0 = row.insertCell(0);
 
     if (value.melding != "Momenteel geen openstaande verzoeken beschikbaar.") {
@@ -51,12 +53,54 @@ function insertVerzoek(myJson) {
       cell0.innerHTML = value.persoonsid;
       cell1.innerHTML = value.teamverzoek + "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_weigeren'>X</button>"
                                           + "<button class='waves-effect waves-light btn-small #bf360c deep-orange darken-4' id='verzoek_accepteren'>✔</button>";
+
+      cell1.addEventListener("click", function() {
+        var team = row.getAttribute("id");
+        hiddenInput.setAttribute("value", team);
+        hiddenInput2.setAttribute("value", value.persoonsid);
+
+        verzoekWeigeren(team);
+        event.stopPropagation(); // Zodat de pagina niet refresht door de <form>.
+        event.preventDefault();
+      });
     } else {
       cell0.innerHTML = value.melding;
     }
 
     i++; 
   }
+}
+
+function verzoekWeigeren(team) {
+  var formData = new FormData(document.querySelector("#verzoekWeigerenForm"))
+  var encData = new URLSearchParams(formData.entries());
+  var fetchdelete = {
+    method: 'DELETE',
+    headers: {
+      'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+    },
+    body: encData
+  }
+
+  fetch('restservices/wachtlijstsysteem/verzoekweigeren', fetchdelete)
+    .then(function(response) {
+      if(response.ok) {
+        document.getElementById('foutmelding').style.display = "none";
+        document.getElementById('goedmelding').style.display = "block"; // Toon melding dat het gelukt is.
+
+        loadVerzoeken();
+        clearTable();
+      } else {
+        document.getElementById('goedmelding').style.display = "none"; 
+        document.getElementById('foutmelding').style.display = "block"; // Toon foutmelding.
+        
+      }
+    });
+}
+
+
+function verzoekAccepteren() {
+
 }
 
 // Tabel leeg gooien.
@@ -67,6 +111,12 @@ function clearTable() {
     document.getElementById("verzoekTable").deleteRow(1);
     i++;
   }
+}
+
+// Een rij uit tabel verwijderen.
+function deleteSelectedRow(team) {
+  var row = document.getElementById(team)
+  row.parentNode.removeChild(row);
 }
 
 // Logout button stuurt je terug naar de login pagina, en leegt ook de session storage met de JWT token

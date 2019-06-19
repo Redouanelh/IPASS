@@ -41,6 +41,9 @@
                     </div>
                     <div class="card-action #424242 grey darken-3">
                       <a id="tableTrigger" style="cursor: pointer;">Toon verzoeken</a>
+                      <br>
+                      <label id="foutmelding" class="foutmelding" style="display: none;">Verzoek weigeren mislukt.</label>
+                      <label id="goedmelding" class="goedmelding" style="display: none;">Verzoek weigeren gelukt.</label>
                     </div>
                   </div>
                 </div>
@@ -48,12 +51,17 @@
   
               <div id="verzoekList">      
                   <div style="overflow-x:auto;">
+                    <form id="verzoekWeigerenForm">
                       <table id=verzoekTable class=verzoekTable class="responsive-table" style="width: 85%;">
                         <tr class="tableheading">
                           <th id="id">PersoonsID:</th>
                           <th id="team">Verzoek voor:</th>
                         </tr>
                       </table>
+                      <!-- Een hidden input die je als formparam meegeeft aan de backend -->
+                    <input id="hiddenInput" type="text" class="hiddenInput" name="teamverzoek" style="display: none;"> 
+                    <input id="hiddenInput2" type="text" class="hiddenInput" name="persoonsid" style="display: none;"> 
+                    </form>
                   </div>
                 </div>
   
