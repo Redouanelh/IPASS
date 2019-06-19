@@ -117,7 +117,7 @@ public class WachtlijstResources {
 				job.add("melding", "JO17");
 				jab.add(job);
 			}
-			if (teamdao.getSpelersFromTeam("JO19").size() < 12 && teamdao.getSpelersFromTeam("JO18").size() < 12 && teamdao.getSpelersFromTeam("JO17").size() < 12 ) {
+			if (teamdao.getSpelersFromTeam("JO19").size() == 12 && teamdao.getSpelersFromTeam("JO18").size() == 12 && teamdao.getSpelersFromTeam("JO17").size() == 12 ) {
 				job.add("melding", "Er zijn helaas geen teams beschikbaar, probeer het later opnieuw.");
 				jab.add(job);
 			}

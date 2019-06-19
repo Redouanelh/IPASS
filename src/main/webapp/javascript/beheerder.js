@@ -98,7 +98,6 @@ function verzoekWeigeren(team) {
     });
 }
 
-
 function verzoekAccepteren() {
 
 }

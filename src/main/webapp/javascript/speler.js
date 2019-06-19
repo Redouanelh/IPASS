@@ -38,7 +38,7 @@ function insertVerzoek(myJson) {
   var hiddenInput = document.getElementById("hiddenInput");
   var i = 1;
 
-  // Als er geen teams beschikbaar zijn.
+  // Als er geen teams beschikbaar zijn (een extra check, dit wordt ook in de backend gedaan.)
   if (myJson.length == 0) {
     var row = table.insertRow(i);
     cell0 = row.insertCell(0);
