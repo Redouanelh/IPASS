@@ -102,6 +102,8 @@ function verzoekAccepteren(team) {
           document.getElementById('foutmelding2').style.display = "none";
           document.getElementById('goedmelding2').style.display = "block"; // Toon melding dat het gelukt is.
 
+          loadVerzoeken();
+          clearTable();
           return response.json();
         } else {
           document.getElementById('goedmelding').style.display = "none";  // Haal de vorige meldingen eerst weg.

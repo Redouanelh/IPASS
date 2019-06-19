@@ -72,7 +72,7 @@ public class WachtlijstResources {
 		}
 		
 		// Als na de teamwijziging van de speler een team vol zit, zullen alle andere teamverzoeken voor dat team verwijderd worden.
-		// Als er na de teamwijziging van de speler nog plek zit in de team, zal deze hele if-statement genegeerd worden en zullen de teamverzoeken blijven bestaan.
+		// Als er na de teamwijziging van de speler nog plek vrij is in de team, zal deze hele if-statement genegeerd worden en zullen de teamverzoeken blijven bestaan.
 		if (teamdao.getSpelersFromTeam(team.getTeam()).size() == 12) {
 			verzoekdao.deleteVerzoekByTeamverzoek(verzoek); 
 		}
