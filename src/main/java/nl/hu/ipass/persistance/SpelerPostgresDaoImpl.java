@@ -92,7 +92,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 	
 	@Override
 	public Speler getSpelerById(int id) {
-		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.spelersnummer, g.geboortedatum, g.mobiel, g.team, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats\r\n" + 
+		String query = "select g.persoonsid, g.voornaam, g.tussenvoegsel, g.achternaam, g.wachtwoord, g.spelersnummer, g.geboortedatum, g.mobiel, g.team, a.adresid, a.postcode, a.straat, a.huisnummer, a.woonplaats\r\n" + 
 				"from gebruikers g, adres a " + 
 				"where g.adresid = a.adresid " + 
 				"and g.persoonsid = ?";
@@ -111,6 +111,7 @@ public class SpelerPostgresDaoImpl extends PostgresBaseDao implements SpelerDao 
 			speler.setVoornaam(myRs.getString("voornaam"));
 			speler.setTussenvoegsel(myRs.getString("tussenvoegsel"));
 			speler.setAchternaam(myRs.getString("achternaam"));
+			speler.setWachtwoord(myRs.getString("wachtwoord"));
 			speler.setSpelersnummer(myRs.getInt("spelersnummer"));
 			speler.setGeboortedatum(myRs.getDate("geboortedatum"));
 			speler.setMobiel(myRs.getInt("mobiel"));

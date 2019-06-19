@@ -2,6 +2,7 @@ package nl.hu.ipass.inlog;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
@@ -32,7 +33,52 @@ import nl.hu.ipass.persistance.VerzoekPostgresDaoImpl;
 @Path("/wachtlijstsysteem")
 public class WachtlijstResources {
 	
-	// Bij verzoek accepteren als je setSpelernummer doet een random nummer meegeven hier.
+	@PUT
+	@Path("/verzoekaccepteren")
+	@RolesAllowed("N")
+	@Produces("application/json")
+	public Response verzoekAccepteren(@Context SecurityContext sc,
+								 	  @FormParam("teamverzoek")String teamverzoek,
+								 	  @FormParam("persoonsid")int persoonsid) { 
+		
+		Random random = new Random();
+		int randomspelersnummer = random.nextInt(100); // Random spelersnummer genereren
+		
+		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
+		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();
+		VerzoekPostgresDaoImpl verzoekdao = new VerzoekPostgresDaoImpl();		
+		
+		Speler speler = spelerdao.getSpelerById(persoonsid);
+		Team team = teamdao.findTeamByName(teamverzoek);
+		Verzoek verzoek = new Verzoek(speler, teamverzoek);
+		
+		speler.setTeam(team);
+		speler.setSpelersnummer(randomspelersnummer); // Random spelersnummer
+		
+		System.out.println(speler.getVoornaam() + " " + speler.getPersoonsID() + " " + verzoek.getTeamverzoek());
+		
+		// Check of de speler succesfull heeft kunnen updaten.
+		if(!spelerdao.updateSpeler(speler)) {
+			Map<String, String> messages = new HashMap<String, String>();
+			messages.put("error", "Speler heeft niet kunnen updaten!");
+			return Response.status(409).entity(messages).build(); 
+		}
+		
+		// Check of de verzoek succesfully verwijderd is.
+		if (!verzoekdao.deleteVerzoekByPersoonsid(verzoek)) { 
+			Map<String, String> messages = new HashMap<String, String>();
+			messages.put("error", "Verzoek niet kunnen verwijderen!");
+			return Response.status(404).entity(messages).build();
+		}
+		
+		// Als na de teamwijziging van de speler een team vol zit, zullen alle andere teamverzoeken voor dat team verwijderd worden.
+		// Als er na de teamwijziging van de speler nog plek zit in de team, zal deze hele if-statement genegeerd worden en zullen de teamverzoeken blijven bestaan.
+		if (teamdao.getSpelersFromTeam(team.getTeam()).size() == 12) {
+			verzoekdao.deleteVerzoekByTeamverzoek(verzoek); 
+		}
+				
+		return Response.ok(speler).build();
+	}
 	
 	@DELETE
 	@Path("/verzoekweigeren")
@@ -49,7 +95,7 @@ public class WachtlijstResources {
 		
 		Verzoek verzoek = new Verzoek(speler, teamverzoek);
 
-		if (!verzoekdao.deleteVerzoek(verzoek)) { // Niet deleteByPersoonsid gebruiken, je wilt namelijk maar één verzoek verwijderen en niet alle verzoeken van 1 persoon die ook voor andere teams kunnen zijn.
+		if (!verzoekdao.deleteVerzoek(verzoek)) { 
 			Map<String, String> messages = new HashMap<String, String>();
 			messages.put("error", "Verzoek niet kunnen weigeren!");
 			return Response.status(404).entity(messages).build();

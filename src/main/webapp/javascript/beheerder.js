@@ -26,10 +26,6 @@ function loadVerzoeken() {
   });
 }
 
-// Als je een teamverzoek verzend, geef dan ook een spelernummer mee, want wachtlijstmensen hebben spelersnummer 0., of bij beheerder als hij accept
-// dan moet hij een random nummer genereren en meegeven en setten voor de speler. 
-// Misschien random nummer genereren, of gewoon zeggen dat ze zelf mogen inputten en dan als formparam setten.
-
 // Responsive sidebar
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
@@ -61,7 +57,7 @@ function insertVerzoek(myJson) {
       // Verzoek accepteren button
       cell2.addEventListener("click", function() {
         var team = row.getAttribute("id");
-        hittenInput.setAttribute("value", team);
+        hiddenInput.setAttribute("value", team);
         hiddenInput2.setAttribute("value", value.persoonsid);
 
         verzoekAccepteren(team);
@@ -89,11 +85,40 @@ function insertVerzoek(myJson) {
 }
 
 function verzoekAccepteren(team) {
+  var formData = new FormData(document.querySelector("#verzoekForm"))
+  var encData = new URLSearchParams(formData.entries());
+  var fetchupdate = {
+    method: 'PUT',
+    headers: {
+      'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+    },
+    body: encData
+  }
 
+  fetch('restservices/wachtlijstsysteem/verzoekaccepteren', fetchupdate)
+      .then(function(response) {
+        if (response.ok) {
+          document.getElementById('foutmelding').style.display = "none"; // Haal de vorige meldingen eerst weg.
+          document.getElementById('foutmelding2').style.display = "none";
+          document.getElementById('goedmelding2').style.display = "block"; // Toon melding dat het gelukt is.
+
+          return response.json();
+        } else {
+          document.getElementById('goedmelding').style.display = "none";  // Haal de vorige meldingen eerst weg.
+          document.getElementById('goedmelding2').style.display = "none"; 
+          document.getElementById('foutmelding2').style.display = "block"; // Toon foutmelding.
+
+          return;
+        }
+      })
+      .then(function(myJson) {
+      console.log(myJson);
+        
+      });
 }
 
 function verzoekWeigeren(team) {
-  var formData = new FormData(document.querySelector("#verzoekWeigerenForm"))
+  var formData = new FormData(document.querySelector("#verzoekForm"))
   var encData = new URLSearchParams(formData.entries());
   var fetchdelete = {
     method: 'DELETE',
@@ -106,12 +131,18 @@ function verzoekWeigeren(team) {
   fetch('restservices/wachtlijstsysteem/verzoekweigeren', fetchdelete)
     .then(function(response) {
       if(response.ok) {
+        document.getElementById('foutmelding2').style.display = "none"; // Haal de vorige meldingen eerst weg.
+        document.getElementById('goedmelding2').style.display = "none"; 
+
         document.getElementById('foutmelding').style.display = "none";
         document.getElementById('goedmelding').style.display = "block"; // Toon melding dat het gelukt is.
 
         loadVerzoeken();
         clearTable();
       } else {
+        document.getElementById('foutmelding2').style.display = "none"; // Haal de vorige meldingen eerst weg.
+        document.getElementById('goedmelding2').style.display = "none"; 
+
         document.getElementById('goedmelding').style.display = "none"; 
         document.getElementById('foutmelding').style.display = "block"; // Toon foutmelding.
         
