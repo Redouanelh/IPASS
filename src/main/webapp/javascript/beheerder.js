@@ -121,6 +121,7 @@ function verzoekAccepteren(team) {
         if (response.ok) {
           document.getElementById('foutmelding').style.display = "none"; // Haal de vorige meldingen eerst weg.
           document.getElementById('foutmelding2').style.display = "none";
+          document.getElementById('goedmelding').style.display = "none";
           document.getElementById('goedmelding2').style.display = "block"; // Toon melding dat het gelukt is.
 
           loadVerzoeken();
@@ -129,6 +130,7 @@ function verzoekAccepteren(team) {
         } else {
           document.getElementById('goedmelding').style.display = "none";  // Haal de vorige meldingen eerst weg.
           document.getElementById('goedmelding2').style.display = "none"; 
+          document.getElementById('foutmelding').style.display = "none"; 
           document.getElementById('foutmelding2').style.display = "block"; // Toon foutmelding.
 
           return;
