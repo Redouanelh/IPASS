@@ -16,13 +16,33 @@ function loadTeamSpots() {
   })
   .then(function(myJson) {
 
-    console.log(myJson);
+    loadProfile(); // Voor de welkomstbericht.
 
     document.querySelector("#tableTrigger").onclick = function() {
       clearTable();
       insertVerzoek(myJson); 
     }
 
+  });
+}
+
+// Haalt de gegevens van desbetreffende gebruiker op.
+function loadProfile() {
+  var fetchget = {
+    method: 'GET',
+    headers: {
+      'Authorization' : 'Bearer ' + window.sessionStorage.getItem("JWT")
+    }
+  }
+  fetch('restservices/wachtlijstsysteem/spelerprofile/', fetchget)
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    }
+  })
+  .then(function(myJson) {
+    // Voor de welkomstbericht
+    document.querySelector("#welkomtitle").innerHTML = "Welkom " + myJson.voornaam + "!";
   });
 }
 
