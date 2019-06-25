@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/team.css">
 	</head>
   <body>
+    <!-- De navigator bar -->
       <nav class="#424242 grey darken-3" style="min-height: 200px;">
           <div class="nav-wrapper">
             <a href="https://www.vvdemeern.nl/" class="brand-logo"><img src="images/logo.png" alt="Logo VV de Meern" class="logo_demeern"></a>
@@ -32,8 +33,9 @@
 
         <div id="frame">
 
-          <!-- Teaminformatie -->
+          <!-- Team informatie/gegevens -->
             <div id="myTeam">
+              <!-- Linkerkant van de pagina -->
             <div class="titlesleft">
               <p id="teamnaam" class="card-panel teal #424242 grey darken-3">Team: </p>
               <p id="competitie" class="card-panel teal #424242 grey darken-3">Competitie: </p>
@@ -41,6 +43,7 @@
               <br><br><br><br>
               <p id="motto" class="card-panel teal #424242 grey darken-3">Motto: </p>
             </div>
+            <!-- Rechterkant van de pagina -->
             <div class="titlesright">
               <p id="gewonnen" class="card-panel teal #424242 grey darken-3">Aantal gewonnen: </p>
               <p id="gelijk" class="card-panel teal #424242 grey darken-3">Aantal gelijk: </p>
@@ -60,7 +63,7 @@
               <br>
               <button class="waves-effect waves-light btn-large #b71c1c red darken-4" id="teamVerlaten">Team verlaten</button> 
             </div>
-            <!-- Extra info teamgenoot -->
+            <!-- Extra info teamgenoot dat wordt getoond als je op een naam klikt-->
             <div id="myModal" class="modal">
               <div id="modal-content" class="modal-content">
                 <span class="close">&times;</span>
@@ -81,6 +84,7 @@
                   <br>
                   <div class="row">
                       <div class="input-field col s12">
+                        <!-- Disabled inputs ter bevestiging, zodat de gebruiker ziet wat er zal worden aangepast -->
                         <input disabled id="persoonsidmodal" type="text" class="persoonsidmodal" name="persoonsidmodal" style="color:#ff6d00">
                         <input disabled value="Wachtlijst" id="disabled" type="text" class="teamnaammodal" name="teamnaam" style="color: white">
                         <label style="color: white" for="teamnaammodal">ID, Team & spelersnummer;</label>

@@ -20,6 +20,7 @@
     </style>
 	</head>
   <body>
+    <!-- De navigation bar met maar 1 tab -->
       <nav class="#424242 grey darken-3" style="min-height: 200px;">
           <div class="nav-wrapper">
             <a href="https://www.vvdemeern.nl/" class="brand-logo"><img src="images/logo.png" alt="Logo VV de Meern" class="logo_demeern"></a>
@@ -36,14 +37,17 @@
             <li><a id="unauthorized_btn"  class="waves-effect waves-light btn-large #ff6d00 orange accent-4" style="width: 250px;" href="login.html">Terug naar login</a></li>
           </ul>
 
+          <!-- Het bericht voor de gebruiker -->
         <h1 style="color: #424242">U bevat niet de juiste rechten voor<br>het bezoeken van deze pagina!<br><br>Keer terug naar de inlog pagina<br>en probeer het opnieuw. </h1>
 
     <script>
+        // Functie waarmee je terug kan gaan naar de inlogpagina
         document.querySelector("#unauthorized_btn").onclick = function(event) {
         sessionStorage.clear();
         window.location = "login.html";
         }
 
+        // Voor de responsive navigation bar
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');
         var instances = M.Sidenav.init(elems, {});

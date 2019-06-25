@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/beheerder.css">
 	</head>
   <body>
+     <!-- De navigator bar -->
       <nav class="#424242 grey darken-3" style="min-height: 200px;">
           <div class="nav-wrapper">
             <a href="https://www.vvdemeern.nl/" class="brand-logo"><img src="images/logo.png" alt="Logo VV de Meern" class="logo_demeern"></a>
@@ -30,6 +31,7 @@
 
           <div id="frame">
 
+            <!-- Welkomstbericht -->
               <div class="row">
                 <div class="col s12 m6">
                   <div class="card blue-grey darken-1">
@@ -51,6 +53,7 @@
                     <div class="card-action #424242 grey darken-3">
                       <a id="tableTrigger" style="cursor: pointer;">Toon verzoeken</a>
                       <br>
+                      <!-- Goedmelding/foutmelding die verstopt zijn en op de juiste momenten getoond worden -->
                       <label id="foutmelding" class="foutmelding" style="display: none;">Verzoek weigeren mislukt.</label>
                       <label id="goedmelding" class="goedmelding" style="display: none;">Verzoek weigeren gelukt.</label>
                       <label id="foutmelding2" class="foutmelding2" style="display: none;">Verzoek accepteren mislukt.</label>
@@ -60,6 +63,7 @@
                 </div>
               </div>
   
+              <!-- Tabel met teamverzoeken van spelers -->
               <div id="verzoekList">      
                   <div style="overflow-x:auto;">
                     <form id="verzoekForm">
