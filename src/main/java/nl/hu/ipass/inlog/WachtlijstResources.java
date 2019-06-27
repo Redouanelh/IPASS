@@ -35,7 +35,7 @@ public class WachtlijstResources {
 	
 	@PUT
 	@Path("/verzoekaccepteren")
-	@RolesAllowed("N")
+	@RolesAllowed("N") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
 	public Response verzoekAccepteren(@Context SecurityContext sc,
 								 	  @FormParam("teamverzoek")String teamverzoek,
@@ -82,7 +82,7 @@ public class WachtlijstResources {
 	
 	@DELETE
 	@Path("/verzoekweigeren")
-	@RolesAllowed("N")
+	@RolesAllowed("N") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
 	public Response verzoekWeigeren(@Context SecurityContext sc,
 									@FormParam("teamverzoek")String teamverzoek,
@@ -95,6 +95,7 @@ public class WachtlijstResources {
 		
 		Verzoek verzoek = new Verzoek(speler, teamverzoek);
 
+		// Verwijder alleen verzoek van desbetreffende persoon, voor de desbetreffende team.
 		if (!verzoekdao.deleteVerzoek(verzoek)) { 
 			Map<String, String> messages = new HashMap<String, String>();
 			messages.put("error", "Verzoek niet kunnen weigeren!");
@@ -106,7 +107,7 @@ public class WachtlijstResources {
 	
 	@POST
 	@Path("/verzoekindienen")
-	@RolesAllowed("J")
+	@RolesAllowed("J") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
 	public Response verzoekIndienen(@Context SecurityContext sc,
 									@FormParam("teamverzoek")String teamverzoek) {
@@ -131,7 +132,7 @@ public class WachtlijstResources {
 	
 	@GET
 	@Path("/spelerdashboard")
-	@RolesAllowed("J")
+	@RolesAllowed("J") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
 	public String checkTeamSpots(@Context SecurityContext sc
 								) { // Geeft de team terug waar er een plek is ontstaan
@@ -148,7 +149,8 @@ public class WachtlijstResources {
 		
 		if (team.getTeam().equals("Wachtlijst")) { // Check of je wel op de wachtlijst zit, en niet al in een officiëel team.
 			
-			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.		
+			// Check voor ieder team of er een plek/meerdere plekken zijn ontstaan. Zoja, dan wordt dat terug gestuurd.	
+			// Een team mag maximaal 12 spelers bevatten.
 			if (teamdao.getSpelersFromTeam("JO19").size() < 12 ) {
 				job.add("melding", "JO19");
 				jab.add(job);
@@ -179,14 +181,12 @@ public class WachtlijstResources {
 	
 	@GET
 	@Path("/beheerderdashboard")
-	@RolesAllowed("N")
+	@RolesAllowed("N") // De role 'J' betekend dat je een spelersaccount hebt, de role 'N' betekend dat je een beheerdersaccount hebt.
 	@Produces("application/json")
 	public String getVerzoeken(@Context SecurityContext sc) { // Haalt de opgegeven verzoeken op.
 		
 		VerzoekPostgresDaoImpl verzoekdao = new VerzoekPostgresDaoImpl();
-		
-		String username = sc.getUserPrincipal().getName();
-		
+				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
 		// Check of er überhaupt wel verzoeken zijn
@@ -199,6 +199,7 @@ public class WachtlijstResources {
 			return array.toString();
 		}
 			
+		// Stop alle verzoeken in een json array.
 		for (Verzoek v : verzoekdao.getAllVerzoeken()) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("teamverzoek", v.getTeamverzoek());
@@ -329,7 +330,9 @@ public class WachtlijstResources {
 	@RolesAllowed("J")
 	@Produces("application/json")
 	public String showTeammates(@Context SecurityContext sc
-								) { // Toont de teamgenoten van de desbetreffende speler
+								) { 
+		
+		// Toont de teamgenoten van de desbetreffende speler
 		
 		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
 		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();
@@ -359,7 +362,9 @@ public class WachtlijstResources {
 	@RolesAllowed("J")
 	@Produces("application/json")
 	public Response teamVerlaten(@Context SecurityContext sc
-								 ) { // Team verlaten, zet de team op 'Wachtlijst' en de spelersnummer op 0.
+								 ) { 
+		
+		// Team verlaten, zet de team op 'Wachtlijst' en de spelersnummer op 0.
 		
 		SpelerPostgresDaoImpl spelerdao = new SpelerPostgresDaoImpl();
 		TeamPostgresDaoImpl teamdao = new TeamPostgresDaoImpl();

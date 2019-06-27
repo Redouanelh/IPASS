@@ -1,3 +1,4 @@
+// Haalt de beschikbare teams op voor spelers op de wachtlijst.
 function loadTeamSpots() {
   var fetchget = {
     method: 'GET',
@@ -17,7 +18,7 @@ function loadTeamSpots() {
   .then(function(myJson) {
 
     loadProfile(); // Voor de welkomstbericht.
-
+    
     document.querySelector("#tableTrigger").onclick = function() {
       clearTable();
       insertVerzoek(myJson); 
@@ -41,6 +42,7 @@ function loadProfile() {
     }
   })
   .then(function(myJson) {
+    
     // Voor de welkomstbericht
     document.querySelector("#welkomtitle").innerHTML = "Welkom " + myJson.voornaam + "!";
   });
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // In de backend wordt gecheckt of je al in een officiëel team zit of niet.
+// Vult de tabel met de beschikbare teams.
 function insertVerzoek(myJson) {
   var table = document.getElementById("verzoekTable");
   var hiddenInput = document.getElementById("hiddenInput");
@@ -122,7 +125,7 @@ function verzoekIndienen(team) {
           }
         })
         .then(function(myJson) {
-          console.log(myJson);
+          // console.log(myJson);
         });
   }
 

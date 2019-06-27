@@ -21,6 +21,8 @@ public class Main {
 //		  System.out.println(spelerDao.getSpelerByUsername("Redouan"));
 //		  System.out.println(teamDao.findTeamByName("JO19"));
 		  
+//		  NEGEER DEZE MAIN, WAS VOOR MIJ OM IETS TE TESTEN!!!!!!!!!!!!!!
+		  
 	  }
 }
 

@@ -19,7 +19,6 @@ function loadProfile() {
       // Hier de functie die de json values op de webpagina plaatst.
       setProfileVariables(myJson);
       setMapStreet(myJson.straat);
-      console.log(myJson);
     });
   }
 

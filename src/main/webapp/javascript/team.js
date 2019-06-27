@@ -18,10 +18,10 @@ function loadProfile() {
   .then(function(myJson) {
     // Functie die de teamgegevens op de webpagina plaatst.
     setTeamVariables(myJson);
-    console.log(myJson);
     // Haalt de teamgenoten van de gebruiker op.
     loadTeammates();
-    // Voert alvast de persoonsid in van de speler voor het verlaten van een team.
+    // Voert alvast de persoonsid in van de speler voor het verlaten van een team, zodat dit later niet gedaan hoeft te worden.
+    // Een speler verlaat namelijk een team met behulp van zijn unieke id.
     document.querySelector("#persoonsidmodal").setAttribute("value", myJson.id);
 
   });
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Sidenav.init(elems, {});
 });
 
+// Haalt de teamgenoten van de desbetreffende gebruiker op.
 function loadTeammates() {
   var fetchget = {
     method: 'GET',
@@ -45,15 +46,14 @@ function loadTeammates() {
     return response.json();
   })
   .then(function(myJson) {
-    //Hier de functie aanroepen voor tabel vullen.
+    //Hier de functie aanroepen voor tabel vullen met teamgenoten.
     insertTeam(myJson);
-    console.log(myJson);
   });
 }
 
 // Team verlaten functie
 function leaveTeam() {
-  var formData = new FormData(document.querySelector("#teamVerlatenForm"))
+  var formData = new FormData(document.querySelector("#teamVerlatenForm")) // Hier geef je de alvast ingevoerde persoonsid mee zoals ik eerder vermeld had.
   var encData = new URLSearchParams(formData.entries());
   var fetchupdate = {
     method: 'PUT',
@@ -75,6 +75,7 @@ function leaveTeam() {
         }
       })
       .then(function(myJson) {
+
       clearTable();
       loadProfile();
         
@@ -105,6 +106,7 @@ function setTeamVariables(myJson) {
   setValue("#verloren", myJson.verloren);
 }
 
+// Extra informatie van een teamgenoot als er op de desbetreffende naam geklikt wordt.
 function setTeammateInfo(value) {
   document.querySelector("#teammateVoornaam").innerHTML = "Voornaam: ";
   document.querySelector("#teammateAchternaam").innerHTML = "Achternaam: ";
@@ -117,6 +119,7 @@ function setTeammateInfo(value) {
 
 }
 
+// Tabel vullen met teamgenoten.
 function insertTeam(myJson) {
   var table = document.getElementById("teammateTable");
   var i = 1;
@@ -191,7 +194,7 @@ document.querySelector("#teamVerlaten").onclick = function(event) {
 
   document.querySelector("#teamVerlatenBevestiging").onclick = function(event) {
     leaveTeam();
-    event.stopPropagation();
+    event.stopPropagation(); // Voorkomt dat de pagina refresht.
     event.preventDefault();
   }
 

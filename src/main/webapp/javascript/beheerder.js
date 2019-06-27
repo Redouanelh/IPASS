@@ -1,3 +1,4 @@
+// Haalt alle ingediende verzoeken van spelers op.
 function loadVerzoeken() {
   var fetchget = {
     method: 'GET',
@@ -42,6 +43,7 @@ function loadProfile() {
   })
   .then(function(myJson) {
     
+    // Voor de welkomstbericht.
     document.querySelector("#welkomtitle").innerHTML = "Welkom " + myJson.voornaam + "!";
 
   });
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Sidenav.init(elems, {});
 });
 
+// Vult de tabel met alle ingediende verzoeken.
 function insertVerzoek(myJson) {
   var table = document.getElementById("verzoekTable");
   var hiddenInput = document.getElementById("hiddenInput");
@@ -97,7 +100,7 @@ function insertVerzoek(myJson) {
         event.preventDefault();
       });
 
-    } else {
+    } else { // Als er geen verzoeken zijn.
       cell0.innerHTML = value.melding;
     }
 
@@ -137,7 +140,7 @@ function verzoekAccepteren(team) {
         }
       })
       .then(function(myJson) {
-      console.log(myJson);
+      // console.log(myJson);
         
       });
 }
