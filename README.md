@@ -32,10 +32,21 @@ Password: webapp\
 Rol: Beheerder
 
 #### Speler
-hieronder die list
+* Als je je op de wachtlijst bevind & er is/zijn team(s) beschikbaar, dan kun je een verzoek indienen bij de beheerder.
+* Als je al in een officiëel team zit, dan zal het systeem dit tonen.
+* Als er geen teams beschikbaar zijn zal het systeem dit tonen.
+* Bij het verlaten van een team zal de team op 'Wachtlijst' gezet worden, en zal de spelersnummer op 0 gezet worden.
+
 
 #### Beheerder
-hieronder die list
+* Accepteren
+  * Bij het accepteren van een verzoek zullen alle verzoeken van dat persoon worden verwijderd, en de persoon wijzigt van team + krijgt een gegenereerde spelersnummer toegewezen.
+  * Als de team na het accepteren 12 spelers bevat, dan zullen alle andere verzoeken voor dat desbetreffende team ook worden verwijderd.
+  * Als de team na het accepteren minder dan 12 spelers bevat, dan zullen de andere verzoeken blijven bestaan.
+* Weigeren
+  * Alleen het verzoek van de desbetreffende persoon zal worden verwijderd.
+  * Als de persoon meerdere verzoeken voor datzelfde team heeft ingediend, dan worden die ook allemaal verwijderd.
+* De verzoeken staan op volgorde van oud naar nieuw.
 
 #### Let op!
 * Een team bevat maximaal 12 spelers.
