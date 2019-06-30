@@ -41,7 +41,7 @@ Rol: Beheerder
 #### Beheerder
 * Accepteren
   * Bij het accepteren van een verzoek zullen alle verzoeken van dat persoon worden verwijderd, en de persoon wijzigt van team + krijgt een gegenereerde spelersnummer toegewezen.
-  * Als de team na het accepteren 12 spelers bevat, dan zullen alle andere verzoeken voor dat desbetreffende team ook worden verwijderd.
+  * Als de team na het accepteren 12 spelers bevat, dan zullen alle andere verzoeken voor dat desbetreffende team ook worden verwijderd. Dit heb ik gedaan om te voorkomen dat een team ineens meer dan 12 man gaat bevatten.
   * Als de team na het accepteren minder dan 12 spelers bevat, dan zullen de andere verzoeken blijven bestaan.
 * Weigeren
   * Alleen het verzoek van de desbetreffende persoon zal worden verwijderd.
