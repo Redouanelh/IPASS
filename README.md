@@ -28,5 +28,5 @@ Rol: Speler\
 Team: Wachtlijst
 
 Username: Bart\
-Password: Webapp\
+Password: webapp\
 Rol: Beheerder
