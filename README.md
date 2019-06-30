@@ -1,16 +1,32 @@
-Redouan el Hidraoui
-HBO-ICT SIE
-V1A
+Redouan el Hidraoui\
+HBO-ICT SIE V1A
 
 Het WachtLijst-Systeem
 
-Gewoon zeggen kopje dikgedrukt inloggegevens:
-Naam: ...
-Wachtwoord: ...
-Rol: ...
-Team(alleen bij speler): ...
+#### Link naar de website:
+https://wachtlijstsysteem.herokuapp.com/login.html
 
-Voor iedere team 1 inloggegeven doen
-Redouan, Justin, Klaas, nog iemand van jo17
+#### Inloggegevens
+Username: Redouan\
+Password: Utrecht\
+Rol: Speler\
+Team: JO19
 
-Link naar de website: ...
+Username: Justin\
+Password: machine\
+Rol: Speler\
+Team: JO18
+
+Username: Kaster\
+Password: band\
+Rol: Speler\
+Team: JO17
+
+Username: Klaas\
+Password: banden\
+Rol: Speler\
+Team: Wachtlijst
+
+Username: Bart\
+Password: Webapp\
+Rol: Beheerder
