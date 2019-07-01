@@ -1,5 +1,5 @@
 Redouan el Hidraoui\
-HBO-ICT SIE V1A
+TICT-SIE-V1A-18
 
 Het WachtLijst-Systeem
 
