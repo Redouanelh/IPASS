@@ -36,6 +36,7 @@ Rol: Beheerder
 * Als je al in een officiëel team zit, dan zal het systeem dit tonen.
 * Als er geen teams beschikbaar zijn zal het systeem dit tonen.
 * Bij het verlaten van een team zal de team op 'Wachtlijst' gezet worden, en zal de spelersnummer op 0 gezet worden.
+* Als een speler op de wachtlijst staat, is het verlaten van de team niet mogelijk.
 
 
 #### Beheerder
